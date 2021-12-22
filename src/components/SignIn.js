@@ -12,18 +12,32 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {auth} from '../firestore/firestore'
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {useNavigate} from "react-router-dom";
+
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
+    const email = data.get('email')
+    const password = data.get('password')
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: email,
+      password: password,
     });
+    signInWithEmailAndPassword(auth, email, password )
+        .then((userCredential) => {
+          navigate('/chat')
+        }).catch((error) => {
+          console.log(error)
+    })
   };
 
   return (

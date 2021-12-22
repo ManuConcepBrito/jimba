@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -12,7 +13,7 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 const firebaseApp = initializeApp(firebaseConfig);
-
 export const db = getFirestore(firebaseApp);
+export const auth = getAuth(firebaseApp)
 
 
