@@ -1,5 +1,6 @@
-import firebase from "firebase";
-import { atom } from "recoil";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from 'firebase/firestore';
+
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -10,14 +11,8 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
-export const firestoreState = atom({
-  key: "firestore", // unique ID (with respect to other atoms/selectors)
-  default: firebase.app().firestore(), // default value (aka initial value)
-});
+export const db = getFirestore(firebaseApp);
 
-export const firestoreStorageState = atom({
-  key: "firestoreStorage",
-  default: firebase.storage(),
-});
+
