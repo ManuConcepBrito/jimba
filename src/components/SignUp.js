@@ -20,14 +20,41 @@ const theme = createTheme();
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const axios = require('axios')
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get('email')
     const password = data.get('password')
+    const firstName = data.get('firstName')
+    const lastName = data.get('lastName')
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate('/chat')
+        console.log(userCredential)
+        const data = {
+          "username": userCredential.user.email,
+          "secret": userCredential.user.uid,
+          "email": userCredential.user.email,
+          "first_name": firstName,
+          "last_name": lastName,
+          };
+        var config = {
+          method: 'post',
+          url: 'https://api.chatengine.io/users/',
+          headers: {
+              'PRIVATE-KEY': process.env.REACT_APP_CHAT_ENGINE_PRIVATE_KEY
+          },
+          data : data
+        };
+        axios(config)
+          .then(function (response) {
+              console.log(JSON.stringify(response.data));
+              navigate('/chat')
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+
       }).catch((error) => {
           console.log(error)
     })
