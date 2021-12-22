@@ -5,6 +5,7 @@ import ChatDetail from "./components/ChatDetail";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import {createBrowserHistory} from 'history';
+import Chats from "./components/ChatEngine";
 
 function App() {
     const historyInstance = createBrowserHistory();
@@ -14,7 +15,7 @@ function App() {
             <Routes>
                 <Route path="/sign-up" element={<SignUp/>} />
                 <Route path="/sign-in" element={<SignIn/>} />
-                <Route path="/chat" element={<ChatDetail/>} />
+                <Route path="/chat" element={<Chats/>} />
             </Routes>
         </Router>
     );
