@@ -12,7 +12,6 @@ export default function ChatDetail() {
     useEffect(() => {
         const q = query(collection(db, 'messages'))
         const messagesSnap = onSnapshot(q, (querySnapshot) => {
-            console.log(querySnapshot)
             const messages = querySnapshot.docs.map(doc => doc.data())
             setMessages(messages)
         })
