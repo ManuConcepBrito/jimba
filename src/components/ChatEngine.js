@@ -12,10 +12,7 @@ export default function Chats() {
   const didMountRef = useRef(false)
   const [ loading, setLoading ] = useState(true)
   const user = auth.currentUser
-  if (!user || user === null) {
-        navigate("/sign-in")
-        return
-      }
+
 
   async function getFile(url) {
     let response = await fetch(url);
@@ -26,7 +23,10 @@ export default function Chats() {
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true
-
+      if (!user || user === null) {
+        navigate("/sign-in")
+        return
+      }
       // Get-or-Create should be in a Firebase Function
       axios.get(
         'https://api.chatengine.io/users/me/',
