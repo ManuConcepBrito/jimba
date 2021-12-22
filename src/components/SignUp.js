@@ -25,17 +25,12 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
     const email = data.get('email')
     const password = data.get('password')
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         navigate('/chat')
       }).catch((error) => {
           console.log(error)
     })
-
   };
 
   return (
