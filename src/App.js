@@ -1,29 +1,23 @@
 import React from 'react'
-import logo from './logo.svg';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import './App.css';
-import {RecoilRoot} from 'recoil';
+import ChatDetail from "./components/ChatDetail";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import {createBrowserHistory} from 'history';
 
 function App() {
-  return (
-      <RecoilRoot>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {process.env.REACT_APP_APP_ID}
-          </a>
-        </header>
-      </div>
-      </RecoilRoot>
-  );
+    const historyInstance = createBrowserHistory();
+
+    return (
+        <Router history={historyInstance}>
+            <Routes>
+                <Route path="/sign-up" element={<SignUp/>} />
+                <Route path="/sign-in" element={<SignIn/>} />
+                <Route path="/chat" element={<ChatDetail/>} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
