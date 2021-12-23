@@ -2,7 +2,17 @@ import React from 'react'
 import './App.css';
 import CarList from './components/CarList';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import {RecoilRoot} from 'recoil';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
+import './App.css';
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import {createBrowserHistory} from 'history';
+import Chats from "./components/ChatEngine";
+
 
 const theme = createTheme({
   typography: {
@@ -26,16 +36,17 @@ const theme = createTheme({
 
 function App() {
   return (
-      <RecoilRoot>
-        <ThemeProvider theme={theme}>
-          <CarList></CarList>
-        </ThemeProvider>
-      </RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/sign-up" element={<SignUp/>} />
+          <Route path="/sign-in" element={<SignIn/>} />
+          <Route path="/chat" element={<Chats/>} />
+          <Route path="/car-list" element={<CarList/>} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
 export default App;
-function setValue(newValue) {
-  throw new Error('Function not implemented.');
-}
-
