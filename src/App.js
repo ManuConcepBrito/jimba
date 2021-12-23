@@ -6,6 +6,7 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import {createBrowserHistory} from 'history';
 import Chats from "./components/ChatEngine";
+import AssetDetail from "./components/AssetDetail";
 
 function App() {
     const historyInstance = createBrowserHistory();
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/sign-up" element={<SignUp/>} />
                 <Route path="/sign-in" element={<SignIn/>} />
                 <Route path="/chat" element={<Chats/>} />
+                <Route path="/asset/:uid" element={<AssetDetail/>} />
             </Routes>
         </Router>
     );
