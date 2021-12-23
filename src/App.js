@@ -35,3 +35,7 @@ function App() {
 }
 
 export default App;
+function setValue(newValue) {
+  throw new Error('Function not implemented.');
+}
+
