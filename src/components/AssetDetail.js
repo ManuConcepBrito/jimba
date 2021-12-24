@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {collection, onSnapshot, where, query, getDoc, doc} from "firebase/firestore";
+import {getDoc, doc} from "firebase/firestore";
 import {auth, db} from "../firestore/firestore";
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@material-ui/core/Grid';
