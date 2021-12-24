@@ -12,18 +12,20 @@ import {db} from "../firestore/firestore";
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@material-ui/core/Grid';
 import Box from "@mui/material/Box";
-import {ButtonGroup} from "@mui/material";
+import Loading from "./Loading"
+import UndoSharpIcon from '@mui/icons-material/UndoSharp';
 
 export default function AssetDetail() {
+    const [loading, setLoading] = useState(true)
     const [asset, setAsset] = useState([])
     const {uid} = useParams()
     useEffect(() => {
         const assetRef = doc(db, "cars", uid)
-        // const q = query(collection(db, 'cars'), where('license_plate', '==', "DSF6758"))
         const getAsset = async () => {
             try {
                 const data = await getDoc(assetRef)
                 setAsset(data.data())
+                setLoading(false)
             } catch (error) {
                 console.log(error)
             }
@@ -31,53 +33,64 @@ export default function AssetDetail() {
         getAsset()
     }, [asset])
     return (
+        <React.Fragment>
+            {
+                loading ? <Loading/> :
+                <Grid
+                container
+                justify="center"
+                direction="row"
+                alignItems="center"
+                >
 
-        <Grid
-            container
-            justify="center"
-            direction="row"
-            alignItems="center"
-        >
-
-            <Grid item m={5}>
+                <Grid item m={5}>
                 <Card>
-                    <CardMedia
-                        component="img"
-                        image={asset.img_url}
-                        alt="asset"
-                    />
-                    <CardHeader
-                        title={asset.model}
-                        subheader={` VIN: ${asset.vin}`}
-                    />
-                    <CardContent>
-                        {asset.mileage && <Typography variant="p" component="div">
-                            {`Mileage: ${asset.mileage} km`}
-                        </Typography>}
-                        {asset.fuel && <Typography variant="p" component="div">
-                            {`Fuel: ${asset.fuel} L`}
-                        </Typography>}
-                    </CardContent>
-                    <Box
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="center"
-                        justifyContent="center"
-                    >
-                        <ButtonGroup
-                        orientation="vertical"
-                        color="success"
-                        aria-label="vertical contained button group"
-                        sx={{width: '80%'}}
-                    >
-                        <Button sx={{my: 3, boxShadow:10}} variant="contained">Inbound Check</Button>
-                        <Button sx={{my: 3, boxShadow:10}} variant="contained">Outbound Check</Button>
-                    </ButtonGroup>
-                    </Box>
+                <CardMedia
+                component="img"
+                image={asset.img_url}
+                alt="asset"
+                />
+                <CardHeader
+                title={asset.model}
+                subheader={` VIN: ${asset.vin}`}
+                />
+                <CardContent>
+            {asset.mileage && <Typography variant="p" component="div">
+            {`Mileage: ${asset.mileage} km`}
+                </Typography>}
+            {asset.fuel && <Typography variant="p" component="div">
+            {`Fuel: ${asset.fuel} L`}
+                </Typography>}
+                </CardContent>
+                <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                >
+                <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined">Inbound
+                Check</Button>
+                <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined">Outbound
+                Check</Button>
+                </Box>
+                <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="center"
+                >
+                <Button sx={{m: 3, boxShadow: 10}} variant="outlined" startIcon={<UndoSharpIcon/>}>
+                Back
+                </Button>
+                <Button color="primary" sx={{m: 3, boxShadow: 10}} variant="contained">Chat</Button>
+                </Box>
                 </Card>
-            </Grid>
-        </Grid>
+                </Grid>
+                </Grid>
 
+            }
+
+        </React.Fragment>
 
     )
 }
