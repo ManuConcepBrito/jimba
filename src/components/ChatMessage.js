@@ -2,7 +2,6 @@ import React from "react";
 import {auth} from '../firestore/firestore'
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import { deepOrange } from "@material-ui/core/colors";
 
 
 export default function ChatMessage(props) {
