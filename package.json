@@ -2,7 +2,7 @@
   "name": "jimba",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/public",  
+  "homepage": "/public",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -19,6 +19,7 @@
     "react-chat-engine": "^1.11.22",
     "react-dom": "^17.0.2",
     "react-firebase-hooks": "^3.0.5",
+    "react-html5-camera-photo": "^1.5.5",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^2.1.3",
     "web-vitals": "^2.1.2"
