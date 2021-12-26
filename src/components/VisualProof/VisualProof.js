@@ -1,6 +1,5 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-import CardHeader from "@mui/material/CardHeader";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import UndoSharpIcon from "@mui/icons-material/UndoSharp";
@@ -8,7 +7,7 @@ import {TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
 
-function VisualProof(props) {
+function VisualProof() {
     return (
         <>
             <Header header="Inbound Check"
