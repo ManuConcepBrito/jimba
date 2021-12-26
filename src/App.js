@@ -12,6 +12,7 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Chats from "./components/ChatEngine";
 import AssetDetail from "./components/AssetDetail";
+import VisualProof from "./components/VisualProof/VisualProof";
 
 const theme = createTheme({
   typography: {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/chat" element={<Chats/>} />
           <Route path="/car-list" element={<CarList/>} />
           <Route path="/asset/:uid" element={<AssetDetail/>} />
+          <Route path="/proof" element={<VisualProof/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
