@@ -14,6 +14,8 @@ import Chats from "./components/ChatEngine";
 import AssetDetail from "./components/AssetDetail";
 import VisualProof from "./components/VisualProof/VisualProof";
 import Header from "./components/Header";
+import DamageScreen from './components/DamageScreen/DamageScreen';
+import ExteriorDamage from './components/DamageScreen/ExteriorDamage';
 
 const theme = createTheme({
   typography: {
@@ -47,6 +49,8 @@ function App() {
           <Route path="/asset/:uid" element={<AssetDetail/>} />
           <Route path="/proof" element={<VisualProof/>} />
           <Route path="/header" element={<Header/>} />
+          <Route path="/" element={<DamageScreen/>} />
+          <Route path="/exterior" element={<ExteriorDamage/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
