@@ -6,6 +6,8 @@ import UndoSharpIcon from "@mui/icons-material/UndoSharp";
 import {TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
+import {storage} from '../../firestore/firestore'
+import {uploadString, ref} from 'firebase/storage'
 
 
 function VisualProof(props) {
@@ -27,7 +29,10 @@ function VisualProof(props) {
         setState({...state, [name]: value})
     }
     function handleSubmit() {
-
+        const uploadRef = ref(storage, 'images')
+        uploadString(uploadRef, picture_1, 'data_url').then((snapshot) => {
+            console.log('Uploaded a data_url string!')
+        })
     }
 
     return (
