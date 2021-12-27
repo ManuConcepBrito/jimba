@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { List, ListSubheader, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
+import Header from '../Header'
 
 const AREAS = [
   { id: 0, name: 'Exterior', route: '/exterior'},
@@ -22,21 +23,14 @@ export default function DamageScreen() {
 
   return (
     <Box sx={{ width:'100%', height: '100%'}}>
-
+    <Header header="Inbound Check"
+                screenTitle="Damage Overview"
+                screenDescription="Please click on the different inbound check steps to complete them"
+                progress={0}/>
       <List
         sx={{ height: 812, width: 375 }}
         subheader={<div />}
       >
-    <ListSubheader >
-    <Paper component='div' elevation={0} sx={{position:'fixed', padding: 2}}>
-            <Typography variant="h4"
-              sx={{fontWeight: 'bold' }} 
-            >
-              Damages
-            </Typography>
-        </Paper>
-        <Box sx={{height: 80}}></Box>
-    </ListSubheader>
           {
         AREAS.map((area) => (
           <ListItem key={area.id} component="div">
