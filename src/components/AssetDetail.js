@@ -98,7 +98,7 @@ export default function AssetDetail() {
                                     alignItems="center"
                                     justifyContent="center"
                                 >
-                                    <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined">Inbound
+                                    <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined" onClick={navigate('/')}>Inbound
                                         Check</Button>
                                     <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined">Outbound
                                         Check</Button>

@@ -57,9 +57,10 @@ function App() {
                     <Route path="/" element={<DamageScreen/>}/>
                     {
                         AREAS.map((area) => (
-                            <Route path={area.route} element={<InspectionPart parts={area.parts} header={area.header}
-                                                                              screenTitle={area.screenTitle}
-                                                                              screenDescription={area.screenDescription}/>}/>
+                            <Route key={area.id} path={area.route}
+                                   element={<InspectionPart parts={area.parts} header={area.header}
+                                                            screenTitle={area.screenTitle}
+                                                            screenDescription={area.screenDescription}/>}/>
                         ))
                     }
                     <Route path="/template" element={<InspectionPart header={test.header} screenTitle={test.screenTitle}

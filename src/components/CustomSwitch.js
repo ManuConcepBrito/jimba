@@ -14,7 +14,7 @@ const Item = styled(Paper)(({theme}) => ({
     height: 40,
     width: 270,
     lineHeight: '40px',
-    padding:8,
+    padding: 8,
 }));
 
 function CustomSwitch(props) {
@@ -23,6 +23,7 @@ function CustomSwitch(props) {
         <Grid
             container
             direction="row"
+            justifyContent="center"
         >
             <Box
                 m={2}
@@ -32,7 +33,7 @@ function CustomSwitch(props) {
                 >
 
                     <FormGroup>
-                        <FormControlLabel control={<Switch color="primary"/>} labelPlacement="start"
+                        <FormControlLabel control={<Switch/>} labelPlacement="start"
                                           label={props.title}/>
 
                     </FormGroup>

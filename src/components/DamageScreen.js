@@ -36,7 +36,7 @@ class DamageScreen extends React.Component {
                         screenDescription="Please click on the different inbound check steps to complete them"
                         progress={0}/>
                 <List
-                    sx={{height: 812, width: 375}}
+                    sx={{height: "100vh", width: "100vw"}}
                     subheader={<div/>}
                 >
                     {
