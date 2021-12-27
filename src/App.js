@@ -13,7 +13,7 @@ import SignUp from "./components/SignUp";
 import Chats from "./components/ChatEngine";
 import AssetDetail from "./components/AssetDetail";
 import VisualProof from "./components/VisualProof/VisualProof";
-import Header from "./components/Header";
+import CustomSwitch from "./components/CustomSwitch";
 
 const theme = createTheme({
   typography: {
@@ -46,7 +46,6 @@ function App() {
           <Route path="/car-list" element={<CarList/>} />
           <Route path="/asset/:uid" element={<AssetDetail/>} />
           <Route path="/proof" element={<VisualProof/>} />
-          <Route path="/header" element={<Header/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
