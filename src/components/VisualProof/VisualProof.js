@@ -7,7 +7,8 @@ import {TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
 import {storage} from '../../firestore/firestore'
-import {uploadString, ref} from 'firebase/storage'
+import {uploadString, ref, getDownloadURL} from 'firebase/storage'
+import { v4 as uuidv4 } from 'uuid';
 
 
 function VisualProof(props) {
@@ -28,11 +29,13 @@ function VisualProof(props) {
     function handleChange(name, value) {
         setState({...state, [name]: value})
     }
-    function handleSubmit() {
-        const uploadRef = ref(storage, 'images')
-        uploadString(uploadRef, picture_1, 'data_url').then((snapshot) => {
-            console.log('Uploaded a data_url string!')
-        })
+    async function handleSubmit() {
+        const uuid = uuidv4();
+        const uploadRef = ref(storage, uuid )
+        const snapshot = await uploadString(uploadRef, picture_1, 'data_url')
+        const url = await getDownloadURL(uploadRef)
+        console.log(url)
+
     }
 
     return (
