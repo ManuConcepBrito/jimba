@@ -13,7 +13,6 @@ import SignUp from "./components/SignUp";
 import Chats from "./components/ChatEngine";
 import AssetDetail from "./components/AssetDetail";
 import VisualProof from "./components/VisualProof/VisualProof";
-import CustomSwitch from "./components/CustomSwitch";
 
 const theme = createTheme({
   typography: {
