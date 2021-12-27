@@ -41,8 +41,6 @@ export default function CarList() {
     setVin(keyword);
   };
 
-  console.log(foundCars)
-
   return (
     <Box sx={{ width:'100%', height: '100%'}}>
       <List

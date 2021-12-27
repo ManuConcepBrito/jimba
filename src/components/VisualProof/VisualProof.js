@@ -7,6 +7,7 @@ import {TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
 
+// TODO: Drop down with damage type, from the excel?
 function VisualProof() {
     return (
         <>

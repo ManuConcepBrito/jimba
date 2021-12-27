@@ -13,6 +13,14 @@ import SignUp from "./components/SignUp";
 import Chats from "./components/ChatEngine";
 import AssetDetail from "./components/AssetDetail";
 import VisualProof from "./components/VisualProof/VisualProof";
+import Header from "./components/Header";
+import DamageScreen from './components/DamageScreen/DamageScreen';
+import ExteriorDamage from './components/DamageScreen/ExteriorDamage';
+import InteriorDamage from './components/DamageScreen/InteriorDamage';
+import WindowDamage from './components/DamageScreen/WindowDamage';
+import TireDamage from './components/DamageScreen/TireDamage';
+import TechnicalDefect from './components/DamageScreen/TechnicalDefect';
+import SparePartsDamage from './components/DamageScreen/SparePartsDamage';
 
 const theme = createTheme({
   typography: {
@@ -45,6 +53,14 @@ function App() {
           <Route path="/car-list" element={<CarList/>} />
           <Route path="/asset/:uid" element={<AssetDetail/>} />
           <Route path="/proof" element={<VisualProof/>} />
+          <Route path="/header" element={<Header/>} />
+          <Route path="/" element={<DamageScreen/>} />
+          <Route path="/exterior" element={<ExteriorDamage/>} />
+          <Route path="/interior" element={<InteriorDamage/>} />
+          <Route path="/windows" element={<WindowDamage/>} />
+          <Route path="/tires" element={<TireDamage/>} />
+          <Route path="/technical-defect" element={<TechnicalDefect/>} />
+          <Route path="/spare-parts" element={<SparePartsDamage/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
