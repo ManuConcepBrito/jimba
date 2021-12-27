@@ -13,9 +13,12 @@ import SignUp from "./components/SignUp";
 import Chats from "./components/ChatEngine";
 import AssetDetail from "./components/AssetDetail";
 import VisualProof from "./components/VisualProof/VisualProof";
+<<<<<<< HEAD
 import Header from "./components/Header";
 import DamageScreen from './components/DamageScreen/DamageScreen';
 import ExteriorDamage from './components/DamageScreen/ExteriorDamage';
+=======
+>>>>>>> origin/master
 
 const theme = createTheme({
   typography: {
