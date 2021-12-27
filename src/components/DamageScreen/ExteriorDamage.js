@@ -2,11 +2,9 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { List, ListSubheader, Paper } from '@mui/material';
-import { Link } from 'react-router-dom';
+import CustomSwitch from '../CustomSwitch';
 
 const DAMAGETYPES = [
   { id: 0, name: 'Left Headlights' },
@@ -65,7 +63,7 @@ export default function ExteriorDamage() {
             <Typography variant="h4"
               sx={{fontWeight: 'bold' }} 
             >
-              Car List
+              Exterior Damages
             </Typography>
         </Paper>
         <Box sx={{height: 80}}></Box>
@@ -73,14 +71,8 @@ export default function ExteriorDamage() {
           {
         DAMAGETYPES.map((damage) => (
           <ListItem key={damage.id} component="div">
-            <ListItemButton component={Link} to='/proof'>
-              <Card sx={{ width: '100%', boxShadow: 3, borderRadius: 5}}>
-                <CardContent sx={{textAlign: 'center'}}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {damage.name}
-                  </Typography>
-                </CardContent>
-              </Card>
+            <ListItemButton>
+              <CustomSwitch title={damage.name}></CustomSwitch>
             </ListItemButton>
           </ListItem>
           ))

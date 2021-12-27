@@ -17,6 +17,7 @@ const AREAS = [
   { id: 5, name: 'Spare Parts / Loss / Defect', route: '/spare-parts'},
 ];
 
+//TODO: Switchign the state needs to do something
 export default function DamageScreen() {
 
   return (
