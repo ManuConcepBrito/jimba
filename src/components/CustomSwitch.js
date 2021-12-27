@@ -12,6 +12,7 @@ const Item = styled(Paper)(({theme}) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
     height: 40,
+    width: 270,
     lineHeight: '40px',
     padding:8,
 }));
@@ -21,6 +22,7 @@ function CustomSwitch(props) {
 
         <Grid
             container
+            direction="row"
         >
             <Box
                 m={2}
