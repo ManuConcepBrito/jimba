@@ -6,11 +6,13 @@ import {List} from '@mui/material';
 import Header from './Header'
 import {AREAS} from "../static/Areas";
 import Button from "@material-ui/core/Button";
-import { Link } from 'react-router-dom';
+import {useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 
 
-class DamageScreen extends React.Component {
-    state = {
+export default function DamageScreen() {
+    const navigate = useNavigate();
+    const [state, setState] = useState({
         // indicate if the check has been done already
         areas_done: {
             'exterior': false,
@@ -21,14 +23,14 @@ class DamageScreen extends React.Component {
             'spareParts': false
         }
 
-    }
+    })
     // Revision part is finished, set to true
-    handleChange = input => e => {
-        this.setState({[input]: true})
+    const handleChange = input => e => {
+        setState({[input]: true})
     }
 
-    render() {
-        const {areas_done} = this.state
+    const {uid} = useParams()
+    const {areas_done} = state
         return (
             <Box sx={{width: '100%', height: '100%'}}>
                 <Header header="Inbound Check"
@@ -42,7 +44,7 @@ class DamageScreen extends React.Component {
                     {
                         AREAS.map((area) => (
                             <ListItem key={area.id} component="div">
-                                <ListItemButton component={Link} to={area.route}>
+                                <ListItemButton onClick={() => navigate(`${area.route}/${uid}`)}>
                                     <Button style={{width: "60vw", height: "7.5vh"}} variant="outlined" size="large"
                                             disabled={areas_done[`${area.name}`]}>{area.name}</Button>
                                 </ListItemButton>
@@ -53,7 +55,3 @@ class DamageScreen extends React.Component {
             </Box>
         );
     }
-
-}
-
-export default DamageScreen;

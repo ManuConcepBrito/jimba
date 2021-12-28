@@ -51,24 +51,21 @@ export default function AssetDetail() {
 
     useEffect(() => {
         const assetRef = doc(db, "cars", uid)
-        const getAsset = async () => {
-            try {
-                const data = await getDoc(assetRef)
-                setAsset(data.data())
-                setLoading(false)
-            } catch (error) {
-                console.log(error)
-            }
+
+        async function getAsset() {
+            const data = await getDoc(assetRef)
+            setAsset(data.data())
+            setLoading(false)
         }
         getAsset()
-    }, [asset])
+    }, [])
     return (
         <React.Fragment>
             {
                 loading ? <Loading/> :
                     <Grid
                         container
-                        justify="center"
+                        justifyContent="center"
                         direction="row"
                         alignItems="center"
                     >
@@ -98,7 +95,8 @@ export default function AssetDetail() {
                                     alignItems="center"
                                     justifyContent="center"
                                 >
-                                    <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined" onClick={navigate('/')}>Inbound
+                                    <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined"
+                                            onClick={() => navigate(`/inbound-check/${uid}`)}>Inbound
                                         Check</Button>
                                     <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined">Outbound
                                         Check</Button>

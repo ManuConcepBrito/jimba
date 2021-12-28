@@ -54,10 +54,10 @@ function App() {
                     <Route path="/car-list" element={<CarList/>}/>
                     <Route path="/asset/:uid" element={<AssetDetail/>}/>
                     <Route path="/proof" element={<VisualProof/>}/>
-                    <Route path="/" element={<DamageScreen/>}/>
+                    <Route path="/inbound-check/:uid" element={<DamageScreen/>}/>
                     {
                         AREAS.map((area) => (
-                            <Route key={area.id} path={area.route}
+                            <Route key={area.id} path={`${area.route}/:uid`}
                                    element={<InspectionPart parts={area.parts} header={area.header}
                                                             screenTitle={area.screenTitle}
                                                             screenDescription={area.screenDescription}/>}/>

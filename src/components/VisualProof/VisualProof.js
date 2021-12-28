@@ -6,9 +6,10 @@ import UndoSharpIcon from "@mui/icons-material/UndoSharp";
 import {TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
-import {storage} from '../../firestore/firestore'
-import {uploadString, ref, getDownloadURL} from 'firebase/storage'
-import { v4 as uuidv4 } from 'uuid';
+import {storage, db} from '../../firestore/firestore'
+import {collection, doc, setDoc} from "firebase/firestore";
+import {getDownloadURL, ref, uploadString} from 'firebase/storage'
+import {v4 as uuidv4} from 'uuid';
 
 
 function VisualProof(props) {
@@ -29,12 +30,25 @@ function VisualProof(props) {
     function handleChange(name, value) {
         setState({...state, [name]: value})
     }
-    async function handleSubmit() {
+    async function uploadPhoto(photoString) {
         const uuid = uuidv4();
-        const uploadRef = ref(storage, uuid )
-        const snapshot = await uploadString(uploadRef, picture_1, 'data_url')
-        const url = await getDownloadURL(uploadRef)
-        console.log(url)
+        const uploadRef = ref(storage, uuid)
+        const snapshot = await uploadString(uploadRef, photoString, 'data_url')
+        return await getDownloadURL(uploadRef)
+    }
+
+    async function handleSubmit() {
+        const url_photo_1 = await uploadPhoto(picture_1)
+        const url_photo_2 = await uploadPhoto(picture_2)
+        const docData = {
+            [partName]: {
+                img_1: url_photo_1,
+                img_2: url_photo_2,
+                description: 'left_headlights'
+            }
+        }
+        const formRef = collection(db, "forms")
+        await setDoc(formRef, docData)
 
     }
 
