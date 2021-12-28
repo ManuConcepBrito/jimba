@@ -7,19 +7,18 @@ import {TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
 import {storage, db} from '../../firestore/firestore'
-import {collection, setDoc} from "firebase/firestore";
+import {collection, doc, setDoc, updateDoc} from "firebase/firestore";
 import {getDownloadURL, ref, uploadString} from 'firebase/storage'
 import {v4 as uuidv4} from 'uuid';
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 
 function VisualProof(props) {
-    const search = window.location.search; // returns the URL query String
-    const params = new URLSearchParams(search);
-    const partName = params.get('part');
+    let location = useLocation()
+    const {part, assetLocation, area} = location.state
+    const {id, name} = part
     const navigate = useNavigate();
-    const {assetLocation, uid} = useParams()
-    console.log(assetLocation)
+    const {uid} = useParams()
     const screenTitle = props.screenTitle || 'Inbound Check'
 
     const [state, setState] = useState({
@@ -43,31 +42,31 @@ function VisualProof(props) {
 
     async function handleSubmit() {
         let uploadPhotosPromise = []
-        navigate(`/${partName}/${uid}`)
-        for (let pic of [picture_1, picture_2]) {
-            let promise = uploadPhoto(pic)
-            uploadPhotosPromise.push(promise)
-        }
-        const url_photos = await Promise.all(uploadPhotosPromise)
-
-        const docData = {
-            asset: {
-                uid: uid,
-                [partName]: {
-                    img_1: url_photos[0],
-                    img_2: url_photos[1],
-                    description: state.description
-                }
+        navigate(`/detail/${assetLocation}/${uid}`, {state: {area: area}})
+        try {
+            for (let pic of [picture_1, picture_2]) {
+                let promise = uploadPhoto(pic)
+                uploadPhotosPromise.push(promise)
             }
+            const url_photos = await Promise.all(uploadPhotosPromise)
 
+            const docData = {
+                img_1: url_photos[0],
+                img_2: url_photos[1],
+                description: state.description
+
+            }
+            const formRef = doc(collection(doc(db, "forms", uid), area.route), name)
+            await setDoc(formRef, docData)
+        } catch (error) {
+            console.error(error)
         }
-        const formRef = collection(db, "forms")
-        await setDoc(formRef, docData)
+
     }
 
     return (
         <>
-            <Header header={`${screenTitle}: ` + partName}
+            <Header header={`${screenTitle}: ` + name}
                     screenTitle="Visual Proof of Damage"
                     screenDescription="Please describe the damage you have identified. Additionally, please take a picture of the damage"
                     progress={50}

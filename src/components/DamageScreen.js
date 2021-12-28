@@ -4,10 +4,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import {List} from '@mui/material';
 import Header from './Header'
-import {AREAS} from "../static/Areas";
 import Button from "@material-ui/core/Button";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {db} from "../firestore/firestore";
 
 
 export default function DamageScreen(props) {

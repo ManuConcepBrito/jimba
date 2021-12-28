@@ -6,14 +6,17 @@ import {List} from '@mui/material';
 import Header from "./Header";
 import Button from "@material-ui/core/Button";
 import {useNavigate, useParams, useLocation} from "react-router-dom";
-import {AREAS} from "../static/Areas";
 
 export default function InspectionPart(props) {
     let location = useLocation()
     const {area} = location.state
     const {parts, route, header, screenTitle, screenDescription} = area
     const navigate = useNavigate();
-    const {uid} = useParams()
+    const {uid, assetLocation} = useParams()
+
+    const handleNext = (part) => {
+        navigate(`/proof/${uid}`, {state: {area: area, part: part, assetLocation: route}})
+    }
 
     return (
         <React.Fragment>
@@ -29,11 +32,11 @@ export default function InspectionPart(props) {
                     {
                         parts.map((part) => (
                             <ListItem key={part.id} component="div">
-                                {/* Styling not rendering correctly, that's why use window.location.href */}
                                 <ListItemButton onClick={(e) => (
-                                    navigate(`/proof/${uid}?part=${part.name}&id=${part.id}`)
+                                    handleNext(part)
                                 )}>
-                                    <Button style={{width: "60vw", height: "7.5vh"}} variant="outlined"
+                                    <Button style={{width: "60vw", height: "7.5vh"}}
+                                            variant="outlined"
                                             size="large">{part.name}</Button>
                                 </ListItemButton>
                             </ListItem>
