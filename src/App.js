@@ -54,7 +54,7 @@ function App() {
           <Route path="/asset/:uid" element={<AssetDetail/>} />
           <Route path="/proof" element={<VisualProof/>} />
           <Route path="/header" element={<Header/>} />
-          <Route path="/" element={<DamageScreen/>} />
+          <Route path="/damage-screen" element={<DamageScreen/>} />
           <Route path="/exterior" element={<ExteriorDamage/>} />
           <Route path="/interior" element={<InteriorDamage/>} />
           <Route path="/windows" element={<WindowDamage/>} />
