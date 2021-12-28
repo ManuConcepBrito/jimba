@@ -44,7 +44,7 @@ export const AREAS = [
             {id: 38, name: 'Wiper Front'},
             {id: 39, name: 'Wiper Back'}
         ],
-        route: '/exterior',
+        route: 'exterior',
         header: 'Inbound Check',
         screenTitle: 'Exterior Check',
         screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
@@ -65,7 +65,7 @@ export const AREAS = [
             {id: 9, name: 'Tire Repair Kit'},
             {id: 10, name: 'Security Belt'},
         ],
-        route: '/interior',
+        route: 'interior',
         header: 'Inbound Check',
         screenTitle: 'Interior Check',
         screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
@@ -81,7 +81,7 @@ export const AREAS = [
             {id: 4, name: 'Rear Window'},
             {id: 5, name: 'Front Windshield'}
         ],
-        route: '/windows',
+        route: 'windows',
         header: 'Inbound Check',
         screenTitle: 'Windows Check',
         screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
@@ -96,7 +96,7 @@ export const AREAS = [
             {id: 3, name: 'Tire Rear Left'},
             {id: 4, name: 'Tire Pressure Valve'}
         ],
-        route: '/tires',
+        route: 'tires',
         header: 'Inbound Check',
         screenTitle: 'Tires Check',
         screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
@@ -128,7 +128,7 @@ export const AREAS = [
             {id: 20, name: 'Engine'},
             {id: 21, name: 'High Voltage Battery'}
         ],
-        route: '/technical-defect',
+        route: 'technical-defect',
         header: 'Inbound Check',
         screenTitle: 'Technical Check',
         screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
@@ -143,7 +143,7 @@ export const AREAS = [
             {id: 3, name: 'Tire Repair Kit'},
             {id: 4, name: 'Ignition Key'}
         ],
-        route: '/spare-parts',
+        route: 'spare-parts',
         header: 'Inbound Check',
         screenTitle: 'Spare Parts Check',
         screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'

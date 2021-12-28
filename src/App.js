@@ -1,11 +1,10 @@
 import React from 'react'
 import './App.css';
 import CarList from './components/CarList';
-import {ThemeProvider, createTheme} from '@mui/material/styles';
+
 import {
-    BrowserRouter,
     Routes,
-    Route
+    Route, useLocation
 } from "react-router-dom";
 import './App.css';
 import SignIn from "./components/SignIn";
@@ -16,12 +15,7 @@ import VisualProof from "./components/VisualProof/VisualProof";
 import DamageScreen from './components/DamageScreen';
 import InspectionPart from './components/InspectionPart';
 import {AREAS} from "./static/Areas";
-
-const test = {
-    header: 'Inbound Check',
-    screenTitle: 'Template Title',
-    screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos,'
-}
+import {ThemeProvider, createTheme} from '@mui/material/styles';
 
 const theme = createTheme({
     typography: {
@@ -45,29 +39,19 @@ const theme = createTheme({
 
 function App() {
     return (
-        <ThemeProvider theme={theme}>
-            <BrowserRouter>
+        <React.Fragment>
+            <ThemeProvider theme={theme}>
                 <Routes>
                     <Route path="/sign-up" element={<SignUp/>}/>
                     <Route path="/sign-in" element={<SignIn/>}/>
                     <Route path="/chat" element={<Chats/>}/>
                     <Route path="/car-list" element={<CarList/>}/>
                     <Route path="/asset/:uid" element={<AssetDetail/>}/>
-                    <Route path="/proof" element={<VisualProof/>}/>
                     <Route path="/inbound-check/:uid" element={<DamageScreen/>}/>
-                    {
-                        AREAS.map((area) => (
-                            <Route key={area.id} path={`${area.route}/:uid`}
-                                   element={<InspectionPart parts={area.parts} header={area.header}
-                                                            screenTitle={area.screenTitle}
-                                                            screenDescription={area.screenDescription}/>}/>
-                        ))
-                    }
-                    <Route path="/template" element={<InspectionPart header={test.header} screenTitle={test.screenTitle}
-                                                                     screenDescription={test.screenDescription}/>}/>
+                    <Route path="/detail/:assetLocation/:uid" element={<InspectionPart/>}/>
                 </Routes>
-            </BrowserRouter>
-        </ThemeProvider>
+            </ThemeProvider>
+        </React.Fragment>
     );
 }
 

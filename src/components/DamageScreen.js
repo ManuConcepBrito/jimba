@@ -7,11 +7,14 @@ import Header from './Header'
 import {AREAS} from "../static/Areas";
 import Button from "@material-ui/core/Button";
 import {useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 
-export default function DamageScreen() {
-    const navigate = useNavigate();
+export default function DamageScreen(props) {
+    let location = useLocation()
+    let navigate = useNavigate()
+    const {areas} = location.state
+    const {uid} = useParams()
     const [state, setState] = useState({
         // indicate if the check has been done already
         areas_done: {
@@ -28,10 +31,9 @@ export default function DamageScreen() {
     const handleChange = input => e => {
         setState({[input]: true})
     }
-
-    const {uid} = useParams()
     const {areas_done} = state
-        return (
+    return (
+        <React.Fragment>
             <Box sx={{width: '100%', height: '100%'}}>
                 <Header header="Inbound Check"
                         screenTitle="Damage Overview"
@@ -42,16 +44,21 @@ export default function DamageScreen() {
                     subheader={<div/>}
                 >
                     {
-                        AREAS.map((area) => (
+                        areas.map((area) => (
                             <ListItem key={area.id} component="div">
-                                <ListItemButton onClick={() => navigate(`${area.route}/${uid}`)}>
-                                    <Button style={{width: "60vw", height: "7.5vh"}} variant="outlined" size="large"
-                                            disabled={areas_done[`${area.name}`]}>{area.name}</Button>
+                                <ListItemButton>
+                                    <Button
+                                        onClick={(e) => navigate(`/detail/${area.route}/${uid}`, {state: {area: area}})}
+                                        style={{width: "60vw", height: "7.5vh"}} variant="outlined" size="large"
+                                        disabled={areas_done[`${area.name}`]}>{area.name}</Button>
                                 </ListItemButton>
                             </ListItem>
                         ))
                     }
+
+
                 </List>
             </Box>
-        );
-    }
+        </React.Fragment>
+    );
+}

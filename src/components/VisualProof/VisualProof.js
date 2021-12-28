@@ -7,16 +7,18 @@ import {TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
 import {storage, db} from '../../firestore/firestore'
-import {collection, doc, setDoc} from "firebase/firestore";
+import {collection, setDoc} from "firebase/firestore";
 import {getDownloadURL, ref, uploadString} from 'firebase/storage'
 import {v4 as uuidv4} from 'uuid';
+import {useNavigate, useParams} from "react-router-dom";
 
 
 function VisualProof(props) {
     const search = window.location.search; // returns the URL query String
     const params = new URLSearchParams(search);
     const partName = params.get('part');
-    const partId = params.get('id');
+    const navigate = useNavigate();
+    const {uid} = useParams()
     const screenTitle = props.screenTitle || 'Inbound Check'
 
     const [state, setState] = useState({
@@ -30,26 +32,36 @@ function VisualProof(props) {
     function handleChange(name, value) {
         setState({...state, [name]: value})
     }
+
     async function uploadPhoto(photoString) {
         const uuid = uuidv4();
         const uploadRef = ref(storage, uuid)
-        const snapshot = await uploadString(uploadRef, photoString, 'data_url')
+        await uploadString(uploadRef, photoString, 'data_url')
         return await getDownloadURL(uploadRef)
     }
 
     async function handleSubmit() {
-        const url_photo_1 = await uploadPhoto(picture_1)
-        const url_photo_2 = await uploadPhoto(picture_2)
+        let uploadPhotosPromise = []
+        navigate(`/${partName}/${uid}`)
+        for (let pic of [picture_1, picture_2]) {
+            let promise = uploadPhoto(pic)
+            uploadPhotosPromise.push(promise)
+        }
+        const url_photos = await Promise.all(uploadPhotosPromise)
+
         const docData = {
-            [partName]: {
-                img_1: url_photo_1,
-                img_2: url_photo_2,
-                description: 'left_headlights'
+            asset: {
+                uid: uid,
+                [partName]: {
+                    img_1: url_photos[0],
+                    img_2: url_photos[1],
+                    description: state.description
+                }
             }
+
         }
         const formRef = collection(db, "forms")
         await setDoc(formRef, docData)
-
     }
 
     return (
