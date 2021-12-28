@@ -18,7 +18,8 @@ function VisualProof(props) {
     const params = new URLSearchParams(search);
     const partName = params.get('part');
     const navigate = useNavigate();
-    const {uid} = useParams()
+    const {assetLocation, uid} = useParams()
+    console.log(assetLocation)
     const screenTitle = props.screenTitle || 'Inbound Check'
 
     const [state, setState] = useState({

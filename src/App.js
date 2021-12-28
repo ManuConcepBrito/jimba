@@ -49,6 +49,7 @@ function App() {
                     <Route path="/asset/:uid" element={<AssetDetail/>}/>
                     <Route path="/inbound-check/:uid" element={<DamageScreen/>}/>
                     <Route path="/detail/:assetLocation/:uid" element={<InspectionPart/>}/>
+                    <Route path="/proof/:uid" element={<VisualProof/>}/>
                 </Routes>
             </ThemeProvider>
         </React.Fragment>
