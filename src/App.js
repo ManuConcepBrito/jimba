@@ -44,6 +44,7 @@ function App() {
                     <Route path="/sign-up" element={<SignUp/>}/>
                     <Route path="/sign-in" element={<SignIn/>}/>
                     <Route path="/chat" element={<Chats/>}/>
+                    <Route path="/header" element={<Header/>} />
                     <Route path="/car-list" element={<CarList/>}/>
                     <Route path="/asset/:uid" element={<AssetDetail/>}/>
                     {/* Different parts of the car: exterior, interior, etc*/}
