@@ -6,14 +6,9 @@ import {CardActions} from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import Card from "@mui/material/Card";
 
-function CameraWithPreview() {
-    const [dataUri, setDataUri] = useState('');
+function CameraWithPreview(props) {
+    const {name, dataUri, handleChange} = props;
     const [clicked, setClicked] = useState(false)
-
-    function handleTakePhotoAnimationDone(dataUri) {
-        console.log('takePhoto');
-        setDataUri(dataUri);
-    }
 
     const isFullscreen = false;
     return (
@@ -38,11 +33,11 @@ function CameraWithPreview() {
                                             component="img"
                                             image={dataUri}
                                             alt="Live from space album cover"
-                                            onClick={() => setDataUri('')}
+                                            onClick={() => handleChange(name, '')}
                                         />
                                     </Box>
                                 </Card>)
-                                : <Camera onTakePhotoAnimationDone={handleTakePhotoAnimationDone}
+                                : <Camera onTakePhotoAnimationDone={(uri) => handleChange(name, uri)}
                                           isFullscreen={isFullscreen}
                                           isSilentMode={true}
                                           imageCompression={0}

@@ -14,10 +14,11 @@ import Box from "@mui/material/Box";
 import Loading from "./Loading"
 import UndoSharpIcon from '@mui/icons-material/UndoSharp';
 import axios from "axios";
+import {AREAS} from "../static/Areas";
 
 export default function AssetDetail() {
+    let navigate = useNavigate()
     const [loading, setLoading] = useState(true)
-    const navigate = useNavigate();
     const [asset, setAsset] = useState([])
     const {uid} = useParams()
     const user = auth.currentUser
@@ -51,24 +52,22 @@ export default function AssetDetail() {
 
     useEffect(() => {
         const assetRef = doc(db, "cars", uid)
-        const getAsset = async () => {
-            try {
-                const data = await getDoc(assetRef)
-                setAsset(data.data())
-                setLoading(false)
-            } catch (error) {
-                console.log(error)
-            }
+
+        async function getAsset() {
+            const data = await getDoc(assetRef)
+            setAsset(data.data())
+            setLoading(false)
         }
+
         getAsset()
-    }, [asset])
+    }, [])
     return (
         <React.Fragment>
             {
                 loading ? <Loading/> :
                     <Grid
                         container
-                        justify="center"
+                        justifyContent="center"
                         direction="row"
                         alignItems="center"
                     >
@@ -98,8 +97,10 @@ export default function AssetDetail() {
                                     alignItems="center"
                                     justifyContent="center"
                                 >
-                                    <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined">Inbound
-                                        Check</Button>
+                                    <Button sx={{width: "200px", my: 3, boxShadow: 10}}
+                                            onClick={(e) => navigate(`/inbound-check/${uid}`, {state: {areas:AREAS}})}
+                                            variant="outlined"
+                                    >Inbound Check</Button>
                                     <Button sx={{width: "200px", my: 3, boxShadow: 10}} variant="outlined">Outbound
                                         Check</Button>
                                 </Box>
