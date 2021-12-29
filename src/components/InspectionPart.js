@@ -12,7 +12,7 @@ export default function InspectionPart(props) {
     const {area} = location.state
     const {parts, route, header, screenTitle, screenDescription} = area
     const navigate = useNavigate();
-    const {uid, assetLocation} = useParams()
+    const {uid} = useParams()
 
     const handleNext = (part) => {
         navigate(`/proof/${uid}`, {state: {area: area, part: part, assetLocation: route}})
@@ -34,7 +34,7 @@ export default function InspectionPart(props) {
                             <ListItem key={part.id} component="div">
                                 <ListItemButton onClick={(e) => (
                                     handleNext(part)
-                                )}>
+                                )} disabled={part.isChecked}>
                                     <Button style={{width: "60vw", height: "7.5vh"}}
                                             variant="outlined"
                                             size="large">{part.name}</Button>

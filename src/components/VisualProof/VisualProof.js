@@ -7,7 +7,7 @@ import {TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
 import {storage, db} from '../../firestore/firestore'
-import {collection, doc, setDoc, updateDoc} from "firebase/firestore";
+import {collection, doc, setDoc} from "firebase/firestore";
 import {getDownloadURL, ref, uploadString} from 'firebase/storage'
 import {v4 as uuidv4} from 'uuid';
 import {useLocation, useNavigate, useParams} from "react-router-dom";
@@ -15,7 +15,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 function VisualProof(props) {
     let location = useLocation()
-    const {part, assetLocation, area} = location.state
+    let {part, assetLocation, area} = location.state
     const {id, name} = part
     const navigate = useNavigate();
     const {uid} = useParams()
@@ -42,6 +42,8 @@ function VisualProof(props) {
 
     async function handleSubmit() {
         let uploadPhotosPromise = []
+        area.parts[id].isChecked = true
+        console.log(area.parts[id])
         navigate(`/detail/${assetLocation}/${uid}`, {state: {area: area}})
         try {
             for (let pic of [picture_1, picture_2]) {
