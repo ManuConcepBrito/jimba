@@ -6,11 +6,14 @@ import UndoSharpIcon from "@mui/icons-material/UndoSharp";
 import {TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
-import {storage, db} from '../../firestore/firestore'
+import {storage, db, auth} from '../../firestore/firestore'
 import {collection, doc, setDoc} from "firebase/firestore";
 import {getDownloadURL, ref, uploadString} from 'firebase/storage'
 import {v4 as uuidv4} from 'uuid';
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {getChatByTitle, getAPIConfig} from "../../api/chatengine_api";
+import getAssetByUID from "../../api/db_calls";
+import axios from "axios";
 
 
 function VisualProof(props) {
@@ -20,6 +23,7 @@ function VisualProof(props) {
     const navigate = useNavigate();
     const {uid} = useParams()
     const screenTitle = props.screenTitle || 'Inbound Check'
+    const user = auth.currentUser
 
     const [state, setState] = useState({
         picture_1: '',
@@ -43,7 +47,6 @@ function VisualProof(props) {
     async function handleSubmit() {
         let uploadPhotosPromise = []
         area.parts[id].isChecked = true
-        console.log(area.parts[id])
         navigate(`/detail/${assetLocation}/${uid}`, {state: {area: area}})
         try {
             for (let pic of [picture_1, picture_2]) {
@@ -55,11 +58,32 @@ function VisualProof(props) {
             const docData = {
                 img_1: url_photos[0],
                 img_2: url_photos[1],
-                description: state.description
+                description: state.description,
+                isChecked: true
 
             }
+            // Create form with images about Car Problem
             const formRef = doc(collection(doc(db, "forms", uid), area.route), name)
             await setDoc(formRef, docData)
+            // Send message in the chat about this problem
+            let chatAPIConfig = getAPIConfig(user,
+                `https://api.chatengine.io/chats/`,
+                'get')
+            let asset = await getAssetByUID(uid)
+            asset = asset.data()
+            console.log(asset)
+            const chatId = await getChatByTitle(asset.vin, chatAPIConfig)
+            console.log(chatId)
+            chatAPIConfig = {
+                ...chatAPIConfig,
+                url: `https://api.chatengine.io/chats/${chatId}/messages/`,
+                method: 'post',
+                data: {
+                    text: `There is a problem in ${area.name}: ${part.name}. Here's a description by the operator: "${state.description}". Above are the pictures about this issue`,
+                    attachment_urls: url_photos
+                }
+            }
+            await axios(chatAPIConfig)
         } catch (error) {
             console.error(error)
         }
