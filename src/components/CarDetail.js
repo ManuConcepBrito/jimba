@@ -4,28 +4,31 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {getDoc, doc} from "firebase/firestore";
-import {auth, db} from "../firestore/firestore";
+import { useNavigate, useParams} from "react-router-dom";
+import {auth} from "../firestore/firestore";
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@material-ui/core/Grid';
 import Box from "@mui/material/Box";
-import Loading from "./Loading"
 import UndoSharpIcon from '@mui/icons-material/UndoSharp';
 import axios from "axios";
 import {AREAS} from "../static/Areas";
+import { observer } from 'mobx-react';
+import { useEffect, useState } from 'react';
+import Loading from './Loading';
 
-export default function AssetDetail() {
+const CarDetail = observer(({store}) => {
     let navigate = useNavigate()
-    const [loading, setLoading] = useState(true)
-    const [asset, setAsset] = useState([])
     const {uid} = useParams()
     const user = auth.currentUser
+    const [car, setCar] = useState(store.getAssetById(uid))
+
+    useEffect(() => {
+        setCar(store.getAssetById(uid));
+    })
 
     const openChatOnClick = () => {
         const data = JSON.stringify({
-            "title": asset.vin,
+            "title": car.vin,
             "is_direct_chat": false
         });
         const config = {
@@ -50,21 +53,10 @@ export default function AssetDetail() {
 
     }
 
-    useEffect(() => {
-        const assetRef = doc(db, "cars", uid)
-
-        async function getAsset() {
-            const data = await getDoc(assetRef)
-            setAsset(data.data())
-            setLoading(false)
-        }
-
-        getAsset()
-    }, [])
     return (
+        car === undefined ? <Loading/> :
         <React.Fragment>
             {
-                loading ? <Loading/> :
                     <Grid
                         container
                         justifyContent="center"
@@ -76,19 +68,19 @@ export default function AssetDetail() {
                             <Card>
                                 <CardMedia
                                     component="img"
-                                    image={asset.img_url}
+                                    image={car.img_url}
                                     alt="asset"
                                 />
                                 <CardHeader
-                                    title={asset.model}
-                                    subheader={` VIN: ${asset.vin}`}
+                                    title={car.model}
+                                    subheader={` VIN: ${car.vin}`}
                                 />
                                 <CardContent>
-                                    {asset.mileage && <Typography variant="p" component="div">
-                                        {`Mileage: ${asset.mileage} km`}
+                                    {car.mileage && <Typography variant="p" component="div">
+                                        {`Mileage: ${car.mileage} km`}
                                     </Typography>}
-                                    {asset.fuel && <Typography variant="p" component="div">
-                                        {`Fuel: ${asset.fuel} L`}
+                                    {car.fuel && <Typography variant="p" component="div">
+                                        {`Fuel: ${car.fuel} L`}
                                     </Typography>}
                                 </CardContent>
                                 <Box
@@ -110,7 +102,7 @@ export default function AssetDetail() {
                                     alignItems="center"
                                     justifyContent="center"
                                 >
-                                    <Button sx={{m: 3, boxShadow: 10}} variant="outlined" startIcon={<UndoSharpIcon/>}>
+                                    <Button onClick={() => navigate(-1)} sx={{m: 3, boxShadow: 10}} variant="outlined" startIcon={<UndoSharpIcon/>}>
                                         Back
                                     </Button>
                                     <Button onClick={openChatOnClick} color="primary" sx={{m: 3, boxShadow: 10}}
@@ -123,6 +115,7 @@ export default function AssetDetail() {
             }
 
         </React.Fragment>
-
     )
-}
+})
+
+export default CarDetail;
