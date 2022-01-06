@@ -1,47 +1,43 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
-import { FormControl, InputAdornment, InputLabel, List, ListSubheader, OutlinedInput, Paper } from '@mui/material';
-import { useState } from 'react';
+import { FormControl, InputAdornment, InputLabel, List, ListItemButton, ListSubheader, OutlinedInput, Paper } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import Loading from './Loading';
 
-const CARS = [
-  { id: 0, vin: '123456789', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-  { id: 1, vin: '124124115', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-  { id: 2, vin: '612312312', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-  { id: 3, vin: '654169221', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-  { id: 4, vin: '102342234', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-  { id: 5, vin: '680124123', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-  { id: 6, vin: '851203123', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-  { id: 7, vin: '580123134', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-  { id: 8, vin: '085124123', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-  { id: 9, vin: '981529384', lastOpened: 'yesterday', modelName: 'Tesla Model S' },
-];
-
-export default function CarList() {
+const CarList = observer(({store}) => {
+  const navigate = useNavigate();
   const [vin, setVin] = useState('');
-  const [foundCars, setFoundCars] = useState(CARS);
+  const [cars, setCars] = useState(store.assetList);
+  const [foundCars, setFoundCars] = useState(cars);
+
+  useEffect(() => {
+    setCars(store.assetList);
+  })
 
   const filter = (e) => {
     const keyword = e.target.value;
 
     if (keyword !== '') {
-      const results = CARS.filter((car) => {
+      const results = cars.filter((car) => {
         return car.vin.startsWith(keyword);
       });
       setFoundCars(results);
     } else {
-      setFoundCars(CARS);
+      setFoundCars(cars);
     }
 
     setVin(keyword);
   };
 
   return (
+    cars.length === 0 ? <Loading/> :
     <Box sx={{ width:'100%', height: '100%'}}>
       <List
         sx={{ height: 812, width: 375 }}
@@ -72,18 +68,18 @@ export default function CarList() {
         </Box>
         {foundCars && foundCars.length > 0 ? (
         foundCars.map((car) => (
-          <ListItem key={car.id} component="div">
-            <ListItemButton>
+          <ListItem button key={car.id} component="div">
+            <ListItemButton component="button" onClick={(e) => navigate(`/asset/${car.id}`, {state: {car}})}>
               <Card sx={{ width: '100%', boxShadow: 3, borderRadius: 5}}>
                 <CardContent sx={{textAlign: 'center'}}>
                   <Typography gutterBottom variant="body1" component="div">
                     {car.vin}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {car.modelName}
+                    {car.model}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {car.lastOpened}
+                    {car.license_plate}
                   </Typography>
                 </CardContent>
               </Card>
@@ -91,9 +87,29 @@ export default function CarList() {
           </ListItem>
           ))
       ) : (
-        <h1>No results found!</h1>
+        cars.map((car) => (
+          <ListItem button key={car.id} component="div">
+            <ListItemButton component="button" onClick={(e) => navigate(`/asset/${car.id}`, {state: {car}})}>
+              <Card sx={{ width: '100%', boxShadow: 3, borderRadius: 5}}>
+                <CardContent sx={{textAlign: 'center'}}>
+                  <Typography gutterBottom variant="body1" component="div">
+                    {car.vin}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {car.model}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {car.license_plate}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </ListItemButton>
+          </ListItem>
+          ))
       )}
       </List>
     </Box>
   );
-}
+})
+
+export default CarList;

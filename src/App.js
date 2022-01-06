@@ -10,12 +10,14 @@ import './App.css';
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Chats from "./components/ChatEngine";
-import AssetDetail from "./components/AssetDetail";
+import CarDetail from "./components/CarDetail";
 import VisualProof from "./components/VisualProof/VisualProof";
 import DamageScreen from './components/DamageScreen';
 import InspectionPart from './components/InspectionPart';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
+import AssetStore from './state/assetStore';
 
+const assetStore = new AssetStore();
 const theme = createTheme({
     typography: {
         allVariants: {
@@ -38,22 +40,20 @@ const theme = createTheme({
 
 function App() {
     return (
-        <React.Fragment>
-            <ThemeProvider theme={theme}>
-                <Routes>
-                    <Route path="/sign-up" element={<SignUp/>}/>
-                    <Route path="/sign-in" element={<SignIn/>}/>
-                    <Route path="/chat" element={<Chats/>}/>
-                    <Route path="/car-list" element={<CarList/>}/>
-                    <Route path="/asset/:uid" element={<AssetDetail/>}/>
-                    {/* Different parts of the car: exterior, interior, etc*/}
-                    <Route path="/inbound-check/:uid" element={<DamageScreen/>}/>
-                    {/* Parts within a car location: In the exterior e.g., left/right headlights, etc*/}
-                    <Route path="/detail/:assetLocation/:uid" element={<InspectionPart/>}/>
-                    <Route path="/proof/:uid" element={<VisualProof/>}/>
-                </Routes>
-            </ThemeProvider>
-        </React.Fragment>
+    <ThemeProvider theme={theme}>
+        <Routes>
+            <Route path="/sign-up" element={<SignUp/>}/>
+            <Route path="/sign-in" element={<SignIn/>}/>
+            <Route path="/chat" element={<Chats/>}/>
+            <Route path="/car-list" element={<CarList store={assetStore}/>}/>
+            <Route path="/asset/:uid" element={<CarDetail store={assetStore}/>}/>
+            {/* Different parts of the car: exterior, interior, etc*/}
+            <Route path="/inbound-check/:uid" element={<DamageScreen/>}/>
+            {/* Parts within a car location: In the exterior e.g., left/right headlights, etc*/}
+            <Route path="/detail/:assetLocation/:uid" element={<InspectionPart/>}/>
+            <Route path="/proof/:uid" element={<VisualProof/>}/>
+        </Routes>
+    </ThemeProvider>
     );
 }
 
