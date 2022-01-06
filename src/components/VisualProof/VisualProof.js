@@ -14,6 +14,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {getChatByTitle, getAPIConfig} from "../../api/chatengine_api";
 import getAssetByUID from "../../api/db_calls";
 import axios from "axios";
+import CustomSwitch from '../CustomSwitch';
 
 
 function VisualProof(props) {
@@ -40,7 +41,7 @@ function VisualProof(props) {
     async function uploadPhoto(photoString) {
         const uuid = uuidv4();
         const uploadRef = ref(storage, uuid)
-        await uploadString(uploadRef, photoString, 'data_url')
+        await uploadString(uploadRef, photoString, 'data_url', {contentType:'image/jpg'})
         return await getDownloadURL(uploadRef)
     }
 
@@ -98,8 +99,8 @@ function VisualProof(props) {
                     progress={50}
             />
             <Box
-                py={5}
             >
+                <CustomSwitch title="Checked"></CustomSwitch>
                 <Grid
                     container
                     direction="row"
