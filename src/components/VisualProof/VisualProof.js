@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import UndoSharpIcon from "@mui/icons-material/UndoSharp";
-import {TextField} from "@mui/material";
+import {FormControlLabel, FormGroup, Switch, TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
 import {storage, db, auth} from '../../firestore/firestore'
@@ -14,8 +14,6 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {getChatByTitle, getAPIConfig} from "../../api/chatengine_api";
 import getAssetByUID from "../../api/db_calls";
 import axios from "axios";
-import CustomSwitch from '../CustomSwitch';
-
 
 function VisualProof(props) {
     let location = useLocation()
@@ -25,6 +23,7 @@ function VisualProof(props) {
     const {uid} = useParams()
     const screenTitle = props.screenTitle || 'Inbound Check'
     const user = auth.currentUser
+    const [checked, setChecked] = React.useState(true);
 
     const [state, setState] = useState({
         picture_1: '',
@@ -38,6 +37,10 @@ function VisualProof(props) {
         setState({...state, [name]: value})
     }
 
+    const handleSwitch = (event) => {
+        setChecked(event.target.checked);
+    }
+
     async function uploadPhoto(photoString) {
         const uuid = uuidv4();
         const uploadRef = ref(storage, uuid)
@@ -48,6 +51,7 @@ function VisualProof(props) {
     async function handleSubmit() {
         let uploadPhotosPromise = []
         area.parts[id].isChecked = true
+        setChecked(true);
         navigate(`/detail/${assetLocation}/${uid}`, {state: {area: area}})
         try {
             for (let pic of [picture_1, picture_2]) {
@@ -100,7 +104,10 @@ function VisualProof(props) {
             />
             <Box
             >
-                <CustomSwitch title="Checked"></CustomSwitch>
+                <FormGroup sx={{alignItems: "center", justifyContent: "center"}}>
+                    <FormControlLabel control={ <Switch checked={checked} onChange={handleSwitch}/>} label="Damages?" />
+                </FormGroup>
+               
                 <Grid
                     container
                     direction="row"
