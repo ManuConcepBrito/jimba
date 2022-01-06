@@ -39,6 +39,7 @@ function VisualProof(props) {
 
     const handleSwitch = (event) => {
         setChecked(event.target.checked);
+        area.parts[id].isChecked = event.target.checked;
     }
 
     async function uploadPhoto(photoString) {
@@ -108,6 +109,7 @@ function VisualProof(props) {
                     <FormControlLabel control={ <Switch checked={checked} onChange={handleSwitch}/>} label="Damages?" />
                 </FormGroup>
                
+                {!checked ? <Box></Box> : (
                 <Grid
                     container
                     direction="row"
@@ -145,6 +147,7 @@ function VisualProof(props) {
                         </Box>
                     </Grid>
                 </Grid>
+                )}
             </Box>
         </>
 
