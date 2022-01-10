@@ -6,19 +6,13 @@ import {List} from '@mui/material';
 import Header from './Header'
 import Button from "@material-ui/core/Button";
 import { observer } from 'mobx-react';
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 
 const DamageScreen = observer(({areaStore}) => {
-    let location = useLocation()
     let navigate = useNavigate()
-    // const {areas} = location.state
-    const [areas, setAreas] = useState(areaStore.areasList)
+    const [areas] = useState(areaStore.areasList)
     const {uid} = useParams()
-    // // Revision part is finished, set to true
-    // const handleChange = input => e => {
-    //     setState({[input]: true})
-    // }
     const handleSelectArea = (e, area) => {
         navigate(`/detail/${uid}/${area.id}`)
     }

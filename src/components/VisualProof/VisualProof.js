@@ -6,11 +6,11 @@ import UndoSharpIcon from "@mui/icons-material/UndoSharp";
 import {FormControlLabel, FormGroup, Switch, TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
-import {storage, db, auth} from '../../firestore/firestore'
+import {storage, db} from '../../firestore/firestore'
 import {collection, doc, setDoc} from "firebase/firestore";
 import {getDownloadURL, ref, uploadString} from 'firebase/storage'
 import {v4 as uuidv4} from 'uuid';
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {getChatByTitle, getAPIConfig} from "../../api/chatengine_api";
 import getAssetByUID from "../../api/db_calls";
 import axios from "axios";
@@ -19,8 +19,8 @@ import {useAuth} from "../../context/AuthContext";
 
 const VisualProof = observer(({areaStore}) => {
     const {uid, areaId, partId} = useParams()
-    const [area, setArea] = useState(areaStore.setSelectedArea(parseInt(areaId)))
-    const [part, setPart] = useState(areaStore.setSelectedPart(parseInt(areaId), parseInt(partId)))
+    const [area] = useState(areaStore.setSelectedArea(parseInt(areaId)))
+    const [part] = useState(areaStore.setSelectedPart(parseInt(areaId), parseInt(partId)))
     const {id, name} = part
 
     const navigate = useNavigate();
