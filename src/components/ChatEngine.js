@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react"
+import React, {useEffect, useRef} from "react"
 
 import axios from 'axios'
 import {ChatEngine} from 'react-chat-engine'
@@ -7,7 +7,6 @@ import {ChatEngine} from 'react-chat-engine'
 import {useAuth} from "../context/AuthContext";
 
 export default function Chats() {
-    const [loading, setLoading] = useState(true)
     const {currentUser} = useAuth()
     const didMountRef = useRef(true)
 
@@ -19,7 +18,7 @@ export default function Chats() {
 
     useEffect(async () => {
         try {
-            const result = await axios.get(
+            await axios.get(
                 'https://api.chatengine.io/users/me/',
                 {
                     headers: {
@@ -29,10 +28,6 @@ export default function Chats() {
                     }
                 }
             )
-            if (didMountRef.current) {
-                setLoading(false)
-            }
-
 
         } catch (e) {
             if (didMountRef.current) {
@@ -50,7 +45,7 @@ export default function Chats() {
                             formdata,
                             {headers: {"private-key": process.env.REACT_APP_CHAT_ENGINE_PRIVATE_KEY}}
                         )
-                            .then(() => setLoading(false))
+                            .then(() => console.log('Created user in ChatEngine'))
                             .catch(e => console.log('e', e.response))
                     })
             }
