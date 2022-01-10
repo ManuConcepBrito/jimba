@@ -12,7 +12,6 @@ import {useState} from "react";
 const InspectionPart = observer(({areaStore}) => {
     const {areaId, uid} = useParams()
     const [area, setArea] = useState(areaStore.setSelectedArea(parseInt(areaId)))
-    console.log(area)
     const {parts, header, screenTitle, screenDescription} = area
     const navigate = useNavigate();
 
