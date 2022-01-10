@@ -6,16 +6,18 @@ import {List} from '@mui/material';
 import Header from "./Header";
 import Button from "@material-ui/core/Button";
 import {useNavigate, useParams, useLocation} from "react-router-dom";
+import {observer} from "mobx-react";
+import {useState} from "react";
 
-export default function InspectionPart(props) {
-    let location = useLocation()
-    const {area} = location.state
-    const {parts, route, header, screenTitle, screenDescription} = area
+const InspectionPart = observer(({areaStore}) => {
+    const {areaId, uid} = useParams()
+    const [area, setArea] = useState(areaStore.setSelectedArea(parseInt(areaId)))
+    const {parts, header, screenTitle, screenDescription} = area
     const navigate = useNavigate();
-    const {uid} = useParams()
+
 
     const handleNext = (part) => {
-        navigate(`/proof/${uid}`, {state: {area: area, part: part, assetLocation: route}})
+        navigate(`/proof/${uid}/${areaId}/${part.id}`)
     }
 
     return (
@@ -46,4 +48,5 @@ export default function InspectionPart(props) {
             </Box>
         </React.Fragment>
     );
-}
+})
+export default InspectionPart;

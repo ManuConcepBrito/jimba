@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import CarList from './components/CarList';
-
+import {AuthRequired} from "./components/auth/ProtectedRoutes";
 import {
     Routes,
     Route
@@ -16,8 +16,11 @@ import DamageScreen from './components/DamageScreen';
 import InspectionPart from './components/InspectionPart';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import AssetStore from './state/assetStore';
+import AreaStore from './state/areasStore'
+import {AuthProvider} from "./context/AuthContext";
 
 const assetStore = new AssetStore();
+const areaStore = new AreaStore()
 const theme = createTheme({
     typography: {
         allVariants: {
@@ -40,20 +43,49 @@ const theme = createTheme({
 
 function App() {
     return (
-    <ThemeProvider theme={theme}>
-        <Routes>
-            <Route path="/sign-up" element={<SignUp/>}/>
-            <Route path="/sign-in" element={<SignIn/>}/>
-            <Route path="/chat" element={<Chats/>}/>
-            <Route path="/car-list" element={<CarList store={assetStore}/>}/>
-            <Route path="/asset/:uid" element={<CarDetail store={assetStore}/>}/>
-            {/* Different parts of the car: exterior, interior, etc*/}
-            <Route path="/inbound-check/:uid" element={<DamageScreen/>}/>
-            {/* Parts within a car location: In the exterior e.g., left/right headlights, etc*/}
-            <Route path="/detail/:assetLocation/:uid" element={<InspectionPart/>}/>
-            <Route path="/proof/:uid" element={<VisualProof/>}/>
-        </Routes>
-    </ThemeProvider>
+        <AuthProvider>
+            <ThemeProvider theme={theme}>
+                <Routes>
+                    {/* Auth */}
+                    <Route path="/sign-up" element={<SignUp/>}/>
+                    <Route path="/sign-in" element={<SignIn/>}/>
+                    <Route path="/chat" element={
+                        <AuthRequired>
+                            <Chats/>
+                        </AuthRequired>
+                    }/>
+                    <Route path="/car-list" element={
+                        <AuthRequired>
+                            <CarList store={assetStore}/>
+                        </AuthRequired>
+                    }/>
+                    <Route path="/asset/:uid" element={
+                        <AuthRequired>
+                            <CarDetail store={assetStore}/>
+                        </AuthRequired>
+                    }/>
+                    {/* Different parts of the car: exterior, interior, etc*/}
+                    <Route path="/inbound-check/:uid" element={
+                        <AuthRequired>
+                            <DamageScreen areaStore={areaStore}/>
+                        </AuthRequired>
+                    }/>
+                    {/* Parts within a car location: In the exterior e.g., left/right headlights, etc*/}
+                    <Route path="/detail/:uid/:areaId" element={
+                        <AuthRequired>
+                            <InspectionPart areaStore={areaStore}/>
+                        </AuthRequired>
+                    }
+                    />
+                    <Route path="/proof/:uid/:areaId/:partId" element={
+                        <AuthRequired>
+                            <VisualProof areaStore={areaStore}/>
+                        </AuthRequired>
+                    }/>
+                </Routes>
+            </ThemeProvider>
+        </AuthProvider>
+
     );
 }
 

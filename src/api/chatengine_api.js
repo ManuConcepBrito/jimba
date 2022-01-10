@@ -17,6 +17,21 @@ export function getAPIConfig(user, url, method, data) {
     return config
 }
 
+export async function getChats(user) {
+    let response;
+    const config = getAPIConfig(user,
+        'https://api.chatengine.io/chats/',
+        'get'
+        )
+
+    try {
+        response = await(config)
+        return response.data
+    } catch(err) {
+        console.log(err)
+    }
+}
+
 export async function getChatByTitle(title, chatConfig) {
     let chat
     let response
@@ -25,11 +40,11 @@ export async function getChatByTitle(title, chatConfig) {
     } catch(err) {
         console.error(err)
     }
-    chat = response.data.filter(item => {
+    chat = response.data.find(item => {
         return item.title === title
     })
     // Chat doesn't exist, then create
-    if (typeof chat !== "undefined") {
+    if (typeof chat === "undefined") {
         console.log(`Chat with title ${title} not found, creating one...`)
         chatConfig = {
             ...chatConfig,
@@ -41,7 +56,6 @@ export async function getChatByTitle(title, chatConfig) {
             }
         }
         chat = await axios(chatConfig)
-        console.log(chat)
         chat = chat.data
     }
     return chat.id
