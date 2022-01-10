@@ -16,8 +16,10 @@ import DamageScreen from './components/DamageScreen';
 import InspectionPart from './components/InspectionPart';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import AssetStore from './state/assetStore';
+import AreaStore from './state/areasStore'
 
 const assetStore = new AssetStore();
+const areaStore = new AreaStore()
 const theme = createTheme({
     typography: {
         allVariants: {
@@ -48,10 +50,10 @@ function App() {
             <Route path="/car-list" element={<CarList store={assetStore}/>}/>
             <Route path="/asset/:uid" element={<CarDetail store={assetStore}/>}/>
             {/* Different parts of the car: exterior, interior, etc*/}
-            <Route path="/inbound-check/:uid" element={<DamageScreen/>}/>
+            <Route path="/inbound-check/:uid" element={<DamageScreen areaStore={areaStore}/>}/>
             {/* Parts within a car location: In the exterior e.g., left/right headlights, etc*/}
-            <Route path="/detail/:assetLocation/:uid" element={<InspectionPart/>}/>
-            <Route path="/proof/:uid" element={<VisualProof/>}/>
+            <Route path="/detail/:assetLocation/:uid" element={<InspectionPart areaStore={areaStore} />}/>
+            <Route path="/proof/:uid" element={<VisualProof areaStore={areaStore}/>}/>
         </Routes>
     </ThemeProvider>
     );

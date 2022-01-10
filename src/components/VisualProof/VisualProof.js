@@ -14,14 +14,20 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {getChatByTitle, getAPIConfig} from "../../api/chatengine_api";
 import getAssetByUID from "../../api/db_calls";
 import axios from "axios";
+import {observer} from "mobx-react";
 
-function VisualProof(props) {
+const VisualProof = observer(({areaStore}) => {
     let location = useLocation()
-    let {part, assetLocation, area} = location.state
+    const {areaId, partId} = location.state
+    // let {part, assetLocation, area} = location.state
+    const [area, setArea] = useState(areaStore.setSelectedArea(areaId))
+    const [part, setPart] = useState(areaStore.setSelectedPart(areaId, partId))
     const {id, name} = part
+    const assetLocation = area.route
+
     const navigate = useNavigate();
     const {uid} = useParams()
-    const screenTitle = props.screenTitle || 'Inbound Check'
+    const screenTitle = 'Inbound Check'
     const user = auth.currentUser
     const [checked, setChecked] = React.useState(true);
 
@@ -53,7 +59,7 @@ function VisualProof(props) {
         let uploadPhotosPromise = []
         area.parts[id].isChecked = true
         setChecked(true);
-        navigate(`/detail/${assetLocation}/${uid}`, {state: {area: area}})
+        navigate(`/detail/${assetLocation}/${uid}`, {state: {areaId: area.id}})
         try {
             for (let pic of [picture_1, picture_2]) {
                 let promise = uploadPhoto(pic)
@@ -152,6 +158,6 @@ function VisualProof(props) {
         </>
 
     );
-}
+})
 
 export default VisualProof;
