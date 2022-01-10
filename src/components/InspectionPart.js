@@ -12,6 +12,7 @@ import {useState} from "react";
 const InspectionPart = observer(({areaStore}) => {
     const {areaId, uid} = useParams()
     const [area] = useState(areaStore.setSelectedArea(parseInt(areaId)))
+    const [progress] = useState(areaStore.getProgress)
     const {parts, header, screenTitle, screenDescription} = area
     const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ const InspectionPart = observer(({areaStore}) => {
                     <Header header={header}
                             screenTitle={screenTitle}
                             screenDescription={screenDescription}
-                            progress={0}/>
+                            progress={progress}/>
                     {
                         parts.map((part) => (
                             <ListItem key={part.id} component="div">

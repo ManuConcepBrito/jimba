@@ -12,6 +12,7 @@ import {useState} from "react";
 const DamageScreen = observer(({areaStore}) => {
     let navigate = useNavigate()
     const [areas] = useState(areaStore.areasList)
+    const [progress] = useState(areaStore.getProgress)
     const {uid} = useParams()
     const handleSelectArea = (e, area) => {
         navigate(`/detail/${uid}/${area.id}`)
@@ -22,7 +23,7 @@ const DamageScreen = observer(({areaStore}) => {
                 <Header header="Inbound Check"
                         screenTitle="Damage Overview"
                         screenDescription="Please click on the different inbound check steps to complete them"
-                        progress={0}/>
+                        progress={progress}/>
                 <List
                     sx={{height: "100vh", width: "100vw"}}
                     subheader={<div/>}
