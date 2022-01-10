@@ -43,7 +43,6 @@ export async function getChatByTitle(title, chatConfig) {
     chat = response.data.find(item => {
         return item.title === title
     })
-    console.log(response.data)
     // Chat doesn't exist, then create
     if (typeof chat === "undefined") {
         console.log(`Chat with title ${title} not found, creating one...`)
@@ -57,7 +56,6 @@ export async function getChatByTitle(title, chatConfig) {
             }
         }
         chat = await axios(chatConfig)
-        console.log(chat)
         chat = chat.data
     }
     return chat.id

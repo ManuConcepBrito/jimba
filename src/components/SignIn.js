@@ -14,30 +14,35 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {auth} from '../firestore/firestore'
 import {signInWithEmailAndPassword} from "firebase/auth";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useAuth} from "../context/AuthContext";
 
 
 const theme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const {login} = useAuth();
+  const location = useLocation()
+  let {from} = location.state
 
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     const email = data.get('email')
     const password = data.get('password')
-    console.log({
-      email: email,
-      password: password,
-    });
-    signInWithEmailAndPassword(auth, email, password )
-        .then((userCredential) => {
-          navigate('/chat')
-        }).catch((error) => {
-          console.log(error)
-    })
+    try {
+      await login(email, password)
+      if (from === '/sign-in' || !from) {
+        from = 'car-list'
+      }
+      navigate(from)
+    } catch(e) {
+      console.log(e)
+    }
+
   };
 
   return (

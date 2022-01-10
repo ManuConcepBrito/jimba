@@ -1,79 +1,78 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, {useState, useEffect, useRef} from "react"
 
 import axios from 'axios'
-import {useNavigate} from "react-router-dom"
-import { ChatEngine } from 'react-chat-engine'
+import {ChatEngine} from 'react-chat-engine'
 
 
-import { auth } from "../firestore/firestore"
+import {useAuth} from "../context/AuthContext";
 
 export default function Chats() {
-  const navigate = useNavigate();
-  const didMountRef = useRef(false)
-  const [ loading, setLoading ] = useState(true)
-  const user = auth.currentUser
+    const [loading, setLoading] = useState(true)
+    const {currentUser} = useAuth()
+    const didMountRef = useRef(true)
 
-
-  async function getFile(url) {
-    let response = await fetch(url);
-    let data = await response.blob();
-    return new File([data], "test.jpg", { type: 'image/jpeg' });
-  }
-
-  useEffect(() => {
-    if (!didMountRef.current) {
-      didMountRef.current = true
-      if (!user || user === null) {
-        navigate("/sign-in")
-        return
-      }
-      // Get-or-Create should be in a Firebase Function
-      axios.get(
-        'https://api.chatengine.io/users/me/',
-        { headers: {
-          "project-id": process.env.REACT_APP_CHAT_ENGINE_PROJECT_ID,
-          "user-name": user.email,
-          "user-secret": user.uid
-        }}
-      )
-
-      .then(() => setLoading(false))
-
-      .catch(e => {
-        let formdata = new FormData()
-        formdata.append('email', user.email)
-        formdata.append('username', user.email)
-        formdata.append('secret', user.uid)
-
-        getFile(user.photoURL)
-        .then(avatar => {
-          formdata.append('avatar', avatar, avatar.name)
-
-          axios.post(
-            'https://api.chatengine.io/users/',
-            formdata,
-            { headers: { "private-key": process.env.REACT_APP_CHAT_ENGINE_PRIVATE_KEY }}
-          )
-          .then(() => setLoading(false))
-          .catch(e => console.log('e', e.response))
-        })
-      })
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+    async function getFile(url) {
+        let response = await fetch(url);
+        let data = await response.blob();
+        return new File([data], "test.jpg", {type: 'image/jpeg'});
     }
-  }, [user, navigate])
+
+    useEffect(async () => {
+        try {
+            const result = await axios.get(
+                'https://api.chatengine.io/users/me/',
+                {
+                    headers: {
+                        "project-id": process.env.REACT_APP_CHAT_ENGINE_PROJECT_ID,
+                        "user-name": currentUser.email,
+                        "user-secret": currentUser.uid
+                    }
+                }
+            )
+            if (didMountRef.current) {
+                setLoading(false)
+            }
 
 
-  if (!user || loading) return <div />
+        } catch (e) {
+            if (didMountRef.current) {
+                let formdata = new FormData()
+                formdata.append('email', currentUser.email)
+                formdata.append('username', currentUser.email)
+                formdata.append('secret', currentUser.uid)
 
-  return (
-    <div className='chats-page'>
-      <ChatEngine
-        height='calc(100vh - 66px)'
-        projectID={process.env.REACT_APP_CHAT_ENGINE_PROJECT_ID}
-        userName={user.email}
-        userSecret={user.uid}
-      />
-    </div>
-  )
+                getFile(currentUser.photoURL)
+                    .then(avatar => {
+                        formdata.append('avatar', avatar, avatar.name)
+
+                        axios.post(
+                            'https://api.chatengine.io/users/',
+                            formdata,
+                            {headers: {"private-key": process.env.REACT_APP_CHAT_ENGINE_PRIVATE_KEY}}
+                        )
+                            .then(() => setLoading(false))
+                            .catch(e => console.log('e', e.response))
+                    })
+            }
+        }
+
+
+        return () => {
+            didMountRef.current = false;
+        }
+
+    }, [])
+
+    return (
+        <div className='chats-page'>
+
+                <ChatEngine
+                    height='calc(100vh - 66px)'
+                    projectID={process.env.REACT_APP_CHAT_ENGINE_PROJECT_ID}
+                    userName={currentUser.email}
+                    userSecret={currentUser.uid}
+                />
+
+        </div>
+    )
 }
