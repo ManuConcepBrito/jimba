@@ -20,6 +20,7 @@ import {useAuth} from "../../context/AuthContext";
 const VisualProof = observer(({areaStore}) => {
     const {uid, areaId, partId} = useParams()
     const [area] = useState(areaStore.setSelectedArea(parseInt(areaId)))
+    const [progress] = useState(areaStore.getProgress)
     const [part] = useState(areaStore.setSelectedPart(parseInt(areaId), parseInt(partId)))
     const {id, name} = part
 
@@ -53,11 +54,14 @@ const VisualProof = observer(({areaStore}) => {
         return await getDownloadURL(uploadRef)
     }
 
-    async function handleSubmit(isDamaged) {
-        area.parts[id].isChecked = true
+    async function handleSubmit({isDamaged}) {
+        // area.parts[id].isChecked = true
+        areaStore.setPartAsChecked(areaId, partId)
         setChecked(true);
+        areaStore.updateProgress()
         navigate(`/detail/${uid}/${area.id}`)
         if (isDamaged) {
+            console.log(isDamaged)
             let uploadPhotosPromise = []
 
             try {
@@ -127,7 +131,7 @@ const VisualProof = observer(({areaStore}) => {
                 <Header header={`${screenTitle}: ` + name}
                         screenTitle="Visual Proof of Damage"
                         screenDescription="Please describe the damage you have identified. Additionally, please take a picture of the damage"
-                        progress={50}
+                        progress={progress}
                 />
                 <Box
                 >
@@ -136,7 +140,7 @@ const VisualProof = observer(({areaStore}) => {
                                           label="Damages?"/>
                     </FormGroup>
 
-                    {!checked ? <NavigationButtons isDamaged={false}/> : (
+                    {!checked ? <NavigationButtons isDamaged={checked}/> : (
                         <Grid
                             container
                             direction="row"
@@ -158,7 +162,7 @@ const VisualProof = observer(({areaStore}) => {
                                 <CameraWithPreview name="picture_2" dataUri={picture_2} handleChange={handleChange}/>
                             </Grid>
 
-                            <NavigationButtons isDamaged={true}/>
+                            <NavigationButtons isDamaged={checked}/>
                         </Grid>
                     )}
                 </Box>

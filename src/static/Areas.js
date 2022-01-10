@@ -1,3 +1,4 @@
+export const TOTAL_AREAS_NUMBER = 83
 export const AREAS = [
     {
         id: 0,
