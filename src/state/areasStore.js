@@ -1,11 +1,9 @@
-import { collection, getDocs } from 'firebase/firestore';
-import {makeAutoObservable, runInAction, observable, computed, action} from 'mobx';
-import { db } from '../firestore/firestore';
+import {makeAutoObservable, observable, action} from 'mobx';
 import {AREAS} from "../static/Areas";
 
 
 class AreasStore {
-    areas = [];
+    areas = AREAS;
     area = {};
     part = {};
 
@@ -19,7 +17,6 @@ class AreasStore {
         })
     }
     get areasList() {
-        this.areas = AREAS
         return this.areas;
     }
     setSelectedArea(id) {

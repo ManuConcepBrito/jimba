@@ -20,7 +20,7 @@ const DamageScreen = observer(({areaStore}) => {
     //     setState({[input]: true})
     // }
     const handleSelectArea = (e, area) => {
-        navigate(`/detail/${area.route}/${uid}`, {state: {areaId: area.id}})
+        navigate(`/detail/${uid}/${area.id}`)
     }
     return (
         <React.Fragment>

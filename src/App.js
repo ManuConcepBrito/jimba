@@ -52,8 +52,8 @@ function App() {
             {/* Different parts of the car: exterior, interior, etc*/}
             <Route path="/inbound-check/:uid" element={<DamageScreen areaStore={areaStore}/>}/>
             {/* Parts within a car location: In the exterior e.g., left/right headlights, etc*/}
-            <Route path="/detail/:assetLocation/:uid" element={<InspectionPart areaStore={areaStore} />}/>
-            <Route path="/proof/:uid" element={<VisualProof areaStore={areaStore}/>}/>
+            <Route path="/detail/:uid/:areaId" element={<InspectionPart areaStore={areaStore} />}/>
+            <Route path="/proof/:uid/:areaId/:partId" element={<VisualProof areaStore={areaStore}/>}/>
         </Routes>
     </ThemeProvider>
     );

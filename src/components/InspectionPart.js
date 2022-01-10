@@ -10,17 +10,15 @@ import {observer} from "mobx-react";
 import {useState} from "react";
 
 const InspectionPart = observer(({areaStore}) => {
-    let location = useLocation()
-    const {areaId} = location.state
-    const [area, setArea] = useState(areaStore.setSelectedArea(areaId))
-    const {parts, route, header, screenTitle, screenDescription} = area
+    const {areaId, uid} = useParams()
+    const [area, setArea] = useState(areaStore.setSelectedArea(parseInt(areaId)))
+    console.log(area)
+    const {parts, header, screenTitle, screenDescription} = area
     const navigate = useNavigate();
-    const {uid} = useParams()
+
 
     const handleNext = (part) => {
-        const selectedPart = areaStore.setSelectedPart(part.id)
-        console.log(selectedPart)
-        navigate(`/proof/${uid}`, {state: {areaId: area.id, partId: part.id}})
+        navigate(`/proof/${uid}/${areaId}/${part.id}`)
     }
 
     return (

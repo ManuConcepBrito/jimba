@@ -17,16 +17,13 @@ import axios from "axios";
 import {observer} from "mobx-react";
 
 const VisualProof = observer(({areaStore}) => {
-    let location = useLocation()
-    const {areaId, partId} = location.state
-    // let {part, assetLocation, area} = location.state
-    const [area, setArea] = useState(areaStore.setSelectedArea(areaId))
-    const [part, setPart] = useState(areaStore.setSelectedPart(areaId, partId))
+    const {uid, areaId, partId} = useParams()
+    const [area, setArea] = useState(areaStore.setSelectedArea(parseInt(areaId)))
+    const [part, setPart] = useState(areaStore.setSelectedPart(parseInt(areaId), parseInt(partId)))
     const {id, name} = part
-    const assetLocation = area.route
 
     const navigate = useNavigate();
-    const {uid} = useParams()
+
     const screenTitle = 'Inbound Check'
     const user = auth.currentUser
     const [checked, setChecked] = React.useState(true);
@@ -59,7 +56,7 @@ const VisualProof = observer(({areaStore}) => {
         let uploadPhotosPromise = []
         area.parts[id].isChecked = true
         setChecked(true);
-        navigate(`/detail/${assetLocation}/${uid}`, {state: {areaId: area.id}})
+        navigate(`/detail/${uid}/${area.id}`)
         try {
             for (let pic of [picture_1, picture_2]) {
                 let promise = uploadPhoto(pic)
