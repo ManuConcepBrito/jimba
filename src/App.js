@@ -59,12 +59,29 @@ function App() {
                             <CarList store={assetStore}/>
                         </AuthRequired>
                     }/>
-                    <Route path="/asset/:uid" element={<CarDetail store={assetStore}/>}/>
+                    <Route path="/asset/:uid" element={
+                        <AuthRequired>
+                            <CarDetail store={assetStore}/>
+                        </AuthRequired>
+                    }/>
                     {/* Different parts of the car: exterior, interior, etc*/}
-                    <Route path="/inbound-check/:uid" element={<DamageScreen areaStore={areaStore}/>}/>
+                    <Route path="/inbound-check/:uid" element={
+                        <AuthRequired>
+                            <DamageScreen areaStore={areaStore}/>
+                        </AuthRequired>
+                    }/>
                     {/* Parts within a car location: In the exterior e.g., left/right headlights, etc*/}
-                    <Route path="/detail/:uid/:areaId" element={<InspectionPart areaStore={areaStore}/>}/>
-                    <Route path="/proof/:uid/:areaId/:partId" element={<VisualProof areaStore={areaStore}/>}/>
+                    <Route path="/detail/:uid/:areaId" element={
+                        <AuthRequired>
+                            <InspectionPart areaStore={areaStore}/>
+                        </AuthRequired>
+                    }
+                    />
+                    <Route path="/proof/:uid/:areaId/:partId" element={
+                        <AuthRequired>
+                            <VisualProof areaStore={areaStore}/>
+                        </AuthRequired>
+                    }/>
                 </Routes>
             </ThemeProvider>
         </AuthProvider>
