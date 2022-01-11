@@ -5,9 +5,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import {List} from '@mui/material';
 import Header from './Header'
 import Button from "@material-ui/core/Button";
-import { observer } from 'mobx-react';
+import {observer} from 'mobx-react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
+import NavigationButtons from "./NavigationButtons";
 
 const DamageScreen = observer(({areaStore}) => {
     let navigate = useNavigate()
@@ -19,13 +20,12 @@ const DamageScreen = observer(({areaStore}) => {
     }
     return (
         <React.Fragment>
-            <Box sx={{width: '100%', height: '100%'}}>
+            <Box>
                 <Header header="Inbound Check"
                         screenTitle="Damage Overview"
                         screenDescription="Please click on the different inbound check steps to complete them"
                         progress={progress}/>
                 <List
-                    sx={{height: "100vh", width: "100vw"}}
                     subheader={<div/>}
                 >
                     {
@@ -45,6 +45,7 @@ const DamageScreen = observer(({areaStore}) => {
 
                 </List>
             </Box>
+            <NavigationButtons/>
         </React.Fragment>
     );
 })

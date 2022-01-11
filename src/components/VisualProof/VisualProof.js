@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import UndoSharpIcon from "@mui/icons-material/UndoSharp";
-import {FormControlLabel, FormGroup, Switch, TextField} from "@mui/material";
+import {FormControlLabel, FormGroup, Stack, Switch, TextField} from "@mui/material";
 import CameraWithPreview from "./CameraWithPreview";
 import Header from '../Header'
 import {storage, db} from '../../firestore/firestore'
@@ -11,7 +11,7 @@ import {collection, doc, setDoc} from "firebase/firestore";
 import {getDownloadURL, ref, uploadString} from 'firebase/storage'
 import {v4 as uuidv4} from 'uuid';
 import {useNavigate, useParams} from "react-router-dom";
-import {getChatByTitle, getAPIConfig} from "../../api/chatengine_api";
+import {getAPIConfig, getOrCreateChatByTitle} from "../../api/chatengine_api";
 import getAssetByUID from "../../api/db_calls";
 import axios from "axios";
 import {observer} from "mobx-react";
@@ -87,7 +87,7 @@ const VisualProof = observer(({areaStore}) => {
                     'get')
                 let asset = await getAssetByUID(uid)
                 asset = asset.data()
-                const chatId = await getChatByTitle(asset.vin, chatAPIConfig)
+                const chatId = await getOrCreateChatByTitle(asset.vin, chatAPIConfig)
                 chatAPIConfig = {
                     ...chatAPIConfig,
                     url: `https://api.chatengine.io/chats/${chatId}/messages/`,
@@ -108,21 +108,15 @@ const VisualProof = observer(({areaStore}) => {
 
         function NavigationButtons(isDamaged) {
             return (
-                <Grid item xs>
-                    <Box
-                        display="flex"
-                        flexDirection="row"
-                        alignItems="center"
-                        justifyContent="center"
-                    >
+                <Stack m={2} direction="row" spacing={2} justifyContent="center"
+               alignItems="center">
                         <Button sx={{m: 3, boxShadow: 10}} variant="outlined" size="large"
-                                startIcon={<UndoSharpIcon/>}>
+                                startIcon={<UndoSharpIcon/>} onClick={() => navigate(-1)}>
                             Back
                         </Button>
                         <Button sx={{m: 3, boxShadow: 10}} size="large"
                                 variant="contained" onClick={(e) => handleSubmit(isDamaged)}>Next</Button>
-                    </Box>
-                </Grid>
+                    </Stack>
             )
         }
 
