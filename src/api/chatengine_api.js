@@ -32,7 +32,7 @@ export async function getChats(user) {
     }
 }
 
-export async function getChatByTitle(title, chatConfig) {
+export async function getOrCreateChatByTitle(title, chatConfig) {
     let chat
     let response
     try {

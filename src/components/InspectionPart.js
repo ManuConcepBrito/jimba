@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import {useNavigate, useParams} from "react-router-dom";
 import {observer} from "mobx-react";
 import {useState} from "react";
+import NavigationButtons from "./NavigationButtons";
 
 const InspectionPart = observer(({areaStore}) => {
     const {areaId, uid} = useParams()
@@ -23,9 +24,8 @@ const InspectionPart = observer(({areaStore}) => {
 
     return (
         <React.Fragment>
-            <Box sx={{width: '100%', height: '100%'}}>
+            <Box>
                 <List
-                    sx={{height: "100vh", width: "100vw"}}
                     subheader={<div/>}
                 >
                     <Header header={header}
@@ -47,6 +47,7 @@ const InspectionPart = observer(({areaStore}) => {
                     }
                 </List>
             </Box>
+            <NavigationButtons/>
         </React.Fragment>
     );
 })
