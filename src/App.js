@@ -48,7 +48,7 @@ function App() {
                 <Routes>
                     {/* Auth */}
                     <Route path="/sign-up" element={<SignUp/>}/>
-                    <Route path="/sign-in" element={<SignIn/>}/>
+                    <Route path="/" element={<SignIn/>}/>
                     <Route path="/chat" element={
                         <AuthRequired>
                             <Chats/>
