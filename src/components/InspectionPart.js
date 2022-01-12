@@ -47,7 +47,7 @@ const InspectionPart = observer(({areaStore}) => {
                     }
                 </List>
             </Box>
-            <NavigationButtons/>
+            <NavigationButtons prior={{route: `/inbound-check/${uid}`}}/>
         </React.Fragment>
     );
 })

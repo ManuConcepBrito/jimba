@@ -45,7 +45,7 @@ const DamageScreen = observer(({areaStore}) => {
 
                 </List>
             </Box>
-            <NavigationButtons/>
+            <NavigationButtons prior={{route: `/asset/${uid}`}}/>
         </React.Fragment>
     );
 })
