@@ -41,7 +41,7 @@ function CameraWithPreview(props) {
                                           isFullscreen={isFullscreen}
                                           isSilentMode={true}
                                           imageCompression={0}
-                                          isImageMirror={true}
+                                          isImageMirror={false}
                                           isMaxResolution={true}
                                           idealFacingMode={FACING_MODES.ENVIRONMENT}
                                 />
