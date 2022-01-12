@@ -76,7 +76,7 @@ const CarDetail = observer(({store}) => {
                                     <Button sx={{width: "200px", boxShadow: 10}} variant="outlined">Outbound
                                         Check</Button>
                                 </Stack>
-                                <NavigationButtons/>
+                                <NavigationButtons prior={{route: `/car-list`}}/>
                             </Card>
                         </Grid>
                     </Grid>

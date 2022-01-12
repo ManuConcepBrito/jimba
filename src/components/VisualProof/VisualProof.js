@@ -156,7 +156,7 @@ const VisualProof = observer(({areaStore}) => {
                                 <CameraWithPreview name="picture_2" dataUri={picture_2} handleChange={handleChange}/>
                             </Grid>
 
-                            <NavigationButtons isDamaged={checked}/>
+                            <NavigationButtons isDamaged={checked} prior={{route: `/detail/${uid}/${areaId}`}}/>
                         </Grid>
                     )}
                 </Box>
