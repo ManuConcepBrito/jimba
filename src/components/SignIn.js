@@ -14,16 +14,13 @@ import {Button, Container} from '@mui/material';
 import {useState} from "react";
 import {Alert} from "@mui/material";
 
-
 const theme = createTheme();
 
 export default function SignIn() {
-
     const navigate = useNavigate();
     const [error, setError] = useState(false)
     const {login} = useAuth();
     const location = useLocation()
-    let {from} = location.state || {}
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -33,10 +30,7 @@ export default function SignIn() {
         const password = data.get('password')
         try {
             await login(email, password)
-            if (!from || from === '/sign-in') {
-                from = '/car-list'
-            }
-            navigate(from)
+            navigate('car-list')
         } catch (e) {
             setError('Email or Password is wrong')
             console.log(e)
@@ -58,7 +52,7 @@ export default function SignIn() {
                         }}
                     >
                         <img style={{flex: 1, width: 400, height: 400, marginBottom: 150}} alt="Alt"
-                             src="https://firebasestorage.googleapis.com/v0/b/jimba-final.appspot.com/o/logov1.png?alt=media&token=d3e84f93-5449-48a7-9f90-7a6dd460fb41"/>
+                             src="splash.jpg"/>
 
                         <Typography component="h1" variant="h5">
                             Sign in
