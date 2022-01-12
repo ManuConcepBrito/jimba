@@ -48,7 +48,7 @@ export const AREAS = [
         route: 'exterior',
         header: 'Inbound Check',
         screenTitle: 'Exterior Check',
-        screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos',
+        screenDescription: 'Please report any damage on the outside of the car.',
         isChecked: false
     },
     {
@@ -71,7 +71,7 @@ export const AREAS = [
         route: 'interior',
         header: 'Inbound Check',
         screenTitle: 'Interior Check',
-        screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
+        screenDescription: 'Please report any damage on the inside of the car.'
     },
     {
         id: 2,
@@ -88,7 +88,7 @@ export const AREAS = [
         route: 'windows',
         header: 'Inbound Check',
         screenTitle: 'Windows Check',
-        screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
+        screenDescription: 'Please report any damage on the windows of the car.'
     },
     {
         id: 3,
@@ -104,7 +104,7 @@ export const AREAS = [
         route: 'tires',
         header: 'Inbound Check',
         screenTitle: 'Tires Check',
-        screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
+        screenDescription: 'Please report any damage on the tires of the car.'
     },
     {
         id: 4,
@@ -137,7 +137,7 @@ export const AREAS = [
         route: 'technical-defect',
         header: 'Inbound Check',
         screenTitle: 'Technical Check',
-        screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
+        screenDescription: 'Please report any specific technical defect.'
     },
     {
         id: 5,
@@ -153,6 +153,6 @@ export const AREAS = [
         route: 'spare-parts',
         header: 'Inbound Check',
         screenTitle: 'Spare Parts Check',
-        screenDescription: 'His audiam deserunt in, eum ubique voluptatibus te. In reque dicta usu. Ne rebum dissentiet eam, vim omnis deseruisse id. Ullum deleniti vituperata at quo, insolens complectitur te eos'
+        screenDescription: 'Please check if all spare parts are there.'
     },
 ];
