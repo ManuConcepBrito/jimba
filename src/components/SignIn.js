@@ -1,6 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -8,13 +6,11 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useAuth} from "../context/AuthContext";
-
+import { Button, Container } from '@mui/material';
 
 const theme = createTheme();
 
@@ -22,8 +18,6 @@ export default function SignIn() {
   const navigate = useNavigate();
   const {login} = useAuth();
   const location = useLocation()
-  let {from} = location.state
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,10 +27,7 @@ export default function SignIn() {
     const password = data.get('password')
     try {
       await login(email, password)
-      if (from === '/sign-in' || !from) {
-        from = 'car-list'
-      }
-      navigate(from)
+      navigate('/car-list')
     } catch(e) {
       console.log(e)
     }
@@ -56,9 +47,7 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <img style={{flex: 1, width: 400, height: 400, marginBottom: 150}} alt="Alt" src="https://firebasestorage.googleapis.com/v0/b/jimba-final.appspot.com/o/logov1.png?alt=media&token=d3e84f93-5449-48a7-9f90-7a6dd460fb41" />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
