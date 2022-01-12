@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Camera from 'react-html5-camera-photo';
+import Camera, {FACING_MODES} from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import Box from "@mui/material/Box";
 import {CardActions} from "@mui/material";
@@ -41,7 +41,9 @@ function CameraWithPreview(props) {
                                           isFullscreen={isFullscreen}
                                           isSilentMode={true}
                                           imageCompression={0}
+                                          isImageMirror={true}
                                           isMaxResolution={true}
+                                          idealFacingMode={FACING_MODES.ENVIRONMENT}
                                 />
                         }
 
