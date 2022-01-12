@@ -25,7 +25,7 @@ export default function SignIn() {
     const [error, setError] = useState(false)
     const {login} = useAuth();
     const location = useLocation()
-    let {from} = location.state
+    let {from} = location.state || {}
 
 
 
