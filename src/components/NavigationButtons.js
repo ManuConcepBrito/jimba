@@ -14,11 +14,10 @@ const NavigationButtons = ({prior}) => {
                     startIcon={<UndoSharpIcon/>} onClick={() => navigate(prior.route)}>
                 Back
             </Button>
-            <Button sx={{boxShadow: 10}} size="large"
+            <Button sx={{boxShadow: 10, color: "white", fontWeight: "bold", fontFamily: "Poppins", backgroundColor: "primary"}} size="large"
                     variant="contained"
                     onClick={(e) => navigate('/chat')}>Chat</Button>
         </Stack>
-
     );
 }
 

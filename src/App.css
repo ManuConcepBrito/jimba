@@ -36,3 +36,59 @@
     transform: rotate(360deg);
   }
 }
+
+.ce-message-bubble {
+  background-color: #28B6C2 !important;
+  font-weight: bold !important;
+}
+
+#ce-send-message-button {
+  background-color: #28B6C2 !important;
+  font-weight: bold !important;
+}
+
+#ce-send-message-button svg {
+  fill: #FFFFFF !important;
+}
+
+.ce-chat-title-container {
+  color: #28B6C2 !important;
+  font-weight: bold !important;
+}
+
+#new-chat-plus-button svg {
+  fill: #FFFFFF !important;
+}
+
+.ce-primary-button {
+  background-color: #28B6C2 !important;
+}
+
+.ce-chat-form-container {
+  color: #28B6C2 !important;
+  font-weight: bold !important;
+}
+
+.ce-chat-title-text {
+  color: #28B6C2 !important;
+  font-weight: bold !important;
+}
+
+.ce-chat-unread-dot {
+  background-color: #28B6C2 !important;
+  font-weight: bold !important;
+}
+
+.ce-settings {
+  color: #28B6C2 !important;
+  font-weight: bold !important;
+}
+
+.ce-chat-title {
+  color: #28B6C2 !important;
+  font-weight: bold !important;
+}
+
+svg{
+  fill: #28B6C2 !important;
+}

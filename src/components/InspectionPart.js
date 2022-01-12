@@ -38,7 +38,7 @@ const InspectionPart = observer(({areaStore}) => {
                                 <ListItemButton onClick={(e) => (
                                     handleNext(part)
                                 )} disabled={part.isChecked}>
-                                    <Button style={{width: "60vw", height: "7.5vh"}}
+                                    <Button style={{width: "60vw", height: "7.5vh", fontWeight: "bold", fontFamily: "Poppins", }}
                                             variant="outlined"
                                             size="large">{part.name}</Button>
                                 </ListItemButton>

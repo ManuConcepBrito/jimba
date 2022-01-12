@@ -7,20 +7,16 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useLocation, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {useAuth} from "../context/AuthContext";
 import {Button, Container} from '@mui/material';
 import {useState} from "react";
 import {Alert} from "@mui/material";
 
-const theme = createTheme();
-
 export default function SignIn() {
     const navigate = useNavigate();
     const [error, setError] = useState(false)
     const {login} = useAuth();
-    const location = useLocation()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -40,7 +36,6 @@ export default function SignIn() {
 
     return (
         <React.Fragment>
-            <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline/>
                     <Box
@@ -87,6 +82,7 @@ export default function SignIn() {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
+                                color='primary'
                                 sx={{mt: 3, mb: 2}}
                             >
                                 Sign In
@@ -106,7 +102,6 @@ export default function SignIn() {
                         </Box>
                     </Box>
                 </Container>
-            </ThemeProvider>
         </React.Fragment>
     );
 }

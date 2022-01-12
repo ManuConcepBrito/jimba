@@ -21,9 +21,10 @@ import {AuthProvider} from "./context/AuthContext";
 
 const assetStore = new AssetStore();
 const areaStore = new AreaStore()
-const theme = createTheme({
+export const theme = createTheme({
     typography: {
         allVariants: {
+            fontWeight: "bold",
             fontFamily: [
                 'Poppins',
                 'Helvetica Neue',
@@ -39,6 +40,10 @@ const theme = createTheme({
             ].join(','),
         }
     },
+    palette: {
+        primary: { main: '#28B6C2'},
+        secondary: { main: '#2A676C'},
+    }
 });
 
 function App() {
