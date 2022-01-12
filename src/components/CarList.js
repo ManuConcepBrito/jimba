@@ -26,7 +26,7 @@ const CarList = observer(({store}) => {
 
     if (keyword !== '') {
       const results = cars.filter((car) => {
-        return car.vin.toLowerCase().startsWith(keyword);
+        return car.vin.toLowerCase().startsWith(keyword.toLowerCase());
       });
       setFoundCars(results);
     } else {

@@ -78,6 +78,7 @@ const VisualProof = observer(({areaStore}) => {
                     isChecked: true
 
                 }
+
                 // Create form with images about Car Problem
                 const formRef = doc(collection(doc(db, "forms", uid), area.route), name)
                 await setDoc(formRef, docData)
