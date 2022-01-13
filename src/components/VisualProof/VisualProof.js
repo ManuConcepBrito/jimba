@@ -128,20 +128,20 @@ const VisualProof = observer(({areaStore}) => {
                         screenDescription="Please describe the damage you have identified. Additionally, please take a picture of the damage"
                         progress={progress}
                 />
-                <Box
+                <Box sx={{paddingRight: 2}}
                 >
                     <FormGroup sx={{alignItems: "center", justifyContent: "center", m: 3}}>
                         <FormControlLabel control={<Switch checked={checked} onChange={handleSwitch}/>}
                                           label="Damages?"/>
                     </FormGroup>
 
-                    {!checked ? <NavigationButtons isDamaged={checked}/> : (
+                    {!checked ? <NavigationButtons isDamaged={checked} prior={{route: `/detail/${uid}/${areaId}`}}/> : (
+                        <Box>
                         <Grid
                             container
                             direction="row"
                             alignItems="center"
                             justifyContent="center"
-                            spacing={5}
                         >
                             <TextField
                                 id="outlined-required"
@@ -157,8 +157,9 @@ const VisualProof = observer(({areaStore}) => {
                                 <CameraWithPreview name="picture_2" dataUri={picture_2} handleChange={handleChange}/>
                             </Grid>
 
-                            <NavigationButtons isDamaged={checked} prior={{route: `/detail/${uid}/${areaId}`}}/>
                         </Grid>
+                        <NavigationButtons isDamaged={checked} prior={{route: `/detail/${uid}/${areaId}`}}/>
+                        </Box>
                     )}
                 </Box>
             </>
