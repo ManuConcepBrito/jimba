@@ -34,7 +34,7 @@ const DamageScreen = observer(({areaStore}) => {
                                 <ListItemButton>
                                     <Button
                                         onClick={(e) => handleSelectArea(e, area)}
-                                        style={{width: "60vw", height: "7.5vh"}} variant="outlined" size="large"
+                                        style={{backgroundColor: "white", borderWidth: 2, width: "100%", height: "7.5vh", fontWeight: "bold", fontFamily: "Poppins"}}variant="contained" size="large"
                                         id={area.id}
                                     >{area.name}</Button>
                                 </ListItemButton>

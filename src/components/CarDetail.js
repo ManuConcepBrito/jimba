@@ -48,7 +48,7 @@ const CarDetail = observer(({store}) => {
                     >
 
                         <Grid item m={5}>
-                            <Card>
+                            <Card sx={{borderRadius: 0, boxShadow: 0}}>
                                 <CardMedia
                                     component="img"
                                     image={car.img_url}
@@ -58,7 +58,7 @@ const CarDetail = observer(({store}) => {
                                     title={car.model}
                                     subheader={` VIN: ${car.vin}`}
                                 />
-                                <CardContent>
+                                <CardContent sx={{fontWeight: "bold"}}>
                                     {car.mileage && <Typography variant="p" component="div">
                                         {`Mileage: ${car.mileage} km`}
                                     </Typography>}
@@ -67,13 +67,14 @@ const CarDetail = observer(({store}) => {
                                     </Typography>}
                                 </CardContent>
 
-                                <Stack mb={8} mt={2} spacing={4} justifyContent="center"
+                                <Stack paddingBottom={10} paddingTop={10} mb={8} mt={2} spacing={4} justifyContent="center"
                                        alignItems="center">
-                                    <Button sx={{width: "200px", boxShadow: 10}}
+                                    <Button sx={{width: "200px", backgroundColor: "white"}}
                                             onClick={(e) => navigate(`/inbound-check/${uid}`, {state: {areas: AREAS}})}
-                                            variant="outlined"
+                                            variant="contained"
                                     >Inbound Check</Button>
-                                    <Button sx={{width: "200px", boxShadow: 10}} variant="outlined">Outbound
+                                    <Button sx={{width: "200px", boxShadow: 2}} variant="outlined">Maintenance</Button>
+                                    <Button sx={{width: "200px", boxShadow: 2}} variant="outlined">Outbound
                                         Check</Button>
                                 </Stack>
                                 <NavigationButtons prior={{route: `/car-list`}}/>
