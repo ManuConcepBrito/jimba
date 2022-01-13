@@ -40,26 +40,26 @@ const CarList = observer(({store}) => {
     cars.length === 0 ? <Loading/> :
     <Box sx={{ width:'100%', height: '100%'}}>
       <List
-        sx={{ height: 812, width: 375 }}
+        sx={{ height: 812, width: '100%' }}
         subheader={<div />}
       >
         <ListSubheader >
-          <Paper component='div' elevation={0} sx={{position:'fixed', paddingTop: 2}}>
+          <Paper component='div' elevation={0} sx={{position:'fixed', paddingTop: 2, width: '100%'}}>
             <Typography variant="h4"
               sx={{fontWeight: 'bold', marginBottom: 3}} 
             >
               Car List
             </Typography>
-            <FormControl>
-            <InputLabel htmlFor="outlined-adornment-amount">Enter VIN</InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-amount"
-              value={vin}
-              onChange={filter}
-              endAdornment={<InputAdornment position='end'><SearchIcon></SearchIcon></InputAdornment>}
-              label="Enter VIN"
-              sx={{ width: 342, borderRadius: 5}}
-            />
+            <FormControl sx={{width: '92%'}}>
+              <InputLabel htmlFor="outlined-adornment-amount">Enter VIN</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-amount"
+                value={vin}
+                onChange={filter}
+                endAdornment={<InputAdornment position='end'><SearchIcon></SearchIcon></InputAdornment>}
+                label="Enter VIN"
+                sx={{ width: '100%', borderRadius: 5}}
+              />
             </FormControl>
           </Paper>
         </ListSubheader>
