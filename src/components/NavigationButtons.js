@@ -6,7 +6,6 @@ import {Stack} from "@mui/material";
 
 const NavigationButtons = ({prior}) => {
     const navigate = useNavigate()
-    console.log(prior.route)
     return (
         <Stack m={2} direction="row" spacing={2} justifyContent="center"
                alignItems="center">

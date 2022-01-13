@@ -46,7 +46,7 @@ export default function SignIn() {
                             alignItems: 'center',
                         }}
                     >
-                        <img style={{flex: 1, width: 400, height: 400, marginBottom: 150}} alt="Alt"
+                        <img style={{flex: 1, width: '100%', height: 400, marginBottom: 150}} alt="Alt"
                              src="splash.jpg"/>
 
                         <Typography component="h1" variant="h5">
